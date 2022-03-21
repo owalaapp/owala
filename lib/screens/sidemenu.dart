@@ -4,6 +4,8 @@ import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:owalaapp/screens/home.dart';
+import 'package:owalaapp/screens/login.dart';
+import '../main.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
@@ -88,8 +90,8 @@ class SideMenu extends StatelessWidget {
 
               onPressed: () async{
                 await _auth.signOut();
-                Navigator.pop(context);
-              },
+Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MyApp()));              },
                 // onPressed: () => showDialog<String>(
                 //       context: context,
                     
