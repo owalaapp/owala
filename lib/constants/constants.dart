@@ -23,7 +23,7 @@ int deliveryTime = 30;
 
 // USER
 String userName = 'Dev Garg';
-int userPhoneNumber = 7042525705;
+int userPhoneNumber = 1234567890;
 String userDeliveryArea = '887/31, Laxman vihar phase 1';
 String productChoosed = 'vegetable';
 

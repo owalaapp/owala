@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:owalaapp/screens/login.dart';
 import 'constants/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:owalaapp/screens/login.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 
 void main() async {
@@ -24,4 +24,3 @@ class MyApp extends StatelessWidget {
         home: LoginScreen());
   }
 }
-
