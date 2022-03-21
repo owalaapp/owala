@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/screens/about-us.dart';
+import 'package:owalaapp/screens/home.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
+import 'package:owalaapp/components/dividers.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({Key? key}) : super(key: key);
@@ -11,6 +13,7 @@ class SideMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: ourAppBar("My Account", HomeScreen()),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -21,8 +24,7 @@ class SideMenu extends StatelessWidget {
                 CircleAvatar(
                   backgroundColor: Colors.white,
                   minRadius: 35.0,
-                  backgroundImage: NetworkImage(
-                      'https://firebasestorage.googleapis.com/v0/b/owala-8dc48.appspot.com/o/profilePicTemp.png?alt=media&token=28b4c729-ed93-4b08-b9d4-df92265e1508'),
+                  backgroundImage: AssetImage('images/profileAvatar.png'),
                 ),
                 SizedBox(
                   width: 20.0,
@@ -37,44 +39,42 @@ class SideMenu extends StatelessWidget {
                     ),
                     Text(userPhoneNumber.toString())
                   ],
-                )
+                ),
               ],
             ),
-            Divider(
-              height: 60.0,
-            ),
+            ourDividerA(),
+
+            // ListTile(
+            //   textColor: Colors.black,
+            //   leading: Icon(Icons.star),
+            //   title: Text("Rate us on playstore"),
+            //   onTap: () {
+            //     // Navigator.push(context, MaterialPageRoute(builder: toScreen));
+            //   },
+            // ),
 
             ListTile(
-              textColor: Colors.black,
-              leading: Icon(Icons.star),
-              title: Text("Rate us on playstore"),
-              onTap: () {
-                // Navigator.push(context, MaterialPageRoute(builder: toScreen));
-              },
-            ),
-
-ListTile(
               textColor: Colors.black,
               leading: Icon(Icons.live_help),
               title: Text("support"),
               onTap: () {
-Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  CustomerSupportScreen()),
-  );              },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CustomerSupportScreen()),
+                );
+              },
             ),
-
 
             ListTile(
               textColor: Colors.black,
               leading: Icon(Icons.info),
               title: Text("About"),
               onTap: () {
-  Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  AboutUsScreen()),
-  );
-
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutUsScreen()),
+                );
               },
             ),
 
@@ -83,9 +83,10 @@ Navigator.push(
             ),
             OutlinedButton(
                 onPressed: () => showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => OurAlertDialog(context, "Log out", "Are you sure you want to logout?"),
-      ),
+                      context: context,
+                      builder: (BuildContext context) => OurAlertDialog(context,
+                          "Log out", "Are you sure you want to logout?"),
+                    ),
                 child: Text(
                   "Log out",
                   style: TextStyle(color: Colors.red),
@@ -103,5 +104,4 @@ Navigator.push(
       ),
     );
   }
-
 }

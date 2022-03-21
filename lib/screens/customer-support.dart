@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:owalaapp/constants/appbar.dart';
 import 'package:owalaapp/components/appbar.dart';
+import 'package:owalaapp/screens/sidemenu.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/components/cards.dart';
+
 
 class CustomerSupportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ourAppBar("Customer Support"),
+      appBar: ourAppBar("Customer Support", SideMenu()),
       body: SafeArea(
           child: Column(
         children: [
@@ -52,14 +54,6 @@ class CustomerSupportScreen extends StatelessWidget {
     );
   }
 
-  ListTile supportCards(ourIcon, ourMainText, ourSubtText, method) {
-    return ListTile(
-      leading: Icon(ourIcon),
-      title: Text(ourMainText),
-      subtitle: Text(ourSubtText),
-      onTap: method,
-    );
-  }
 
   void callUs() async {
     launch('tel://+$ourContactNumber');

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/screens/home.dart';
 
-AppBar ourAppBar(String title) {
+AppBar ourAppBar(String title, toScreen) {
   return AppBar(
+  
     title: Text(title,
+  
     style: TextStyle(
       color: Colors.white
     ),),
@@ -15,7 +17,8 @@ AppBar ourAppBar(String title) {
           icon: const Icon(Icons.arrow_back),
           color: Colors.white,
           onPressed: () {
-            Navigator.pop(context);
+Navigator.of(context).push(MaterialPageRoute(builder: (context) => toScreen));
+
           },
           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
         );

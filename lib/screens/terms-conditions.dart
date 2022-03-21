@@ -6,13 +6,15 @@ import 'package:owalaapp/screens/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:owalaapp/components/appbar.dart';
 
+import 'about-us.dart';
+
 
 class TermsConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ourAppBar('Terms & Conditions'),
+      appBar: ourAppBar('Terms & Conditions', AboutUsScreen()),
       body: SafeArea(
         child: SingleChildScrollView (
           child: Column(

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "724263304244",
+    "project_id": "owala-8dc48",
+    "storage_bucket": "owala-8dc48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724263304244:android:4562e4f48d4b65ea2fde61",
+        "android_client_info": {
+          "package_name": "com.owalain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724263304244-te4dm0b52t3jljqhacbmgtj7svt081cb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.owalain",
+            "certificate_hash": "1da19900adedcedcddc466af66f1d041a0a89c9d"
+          }
+        },
+        {
+          "client_id": "724263304244-fgf6d9ij14qbc3a6ok6d7rnvsr3cbc0n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0aIKhOZmVjsmfgKdZZfyg3cEWNrBNMjc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724263304244-fgf6d9ij14qbc3a6ok6d7rnvsr3cbc0n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

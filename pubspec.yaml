@@ -12,17 +12,36 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^2.3.1
   material_color_generator: ^1.1.0
+  firebase_auth: ^3.3.11
+  firebase_core: ^1.13.1
   custom_navigator: ^0.3.0
   url_launcher: ^6.0.20
+  flutter_svg: ^1.0.3
+  geolocator: ^8.2.0
+  geocoding: ^2.0.4
+  google_maps_flutter: ^2.1.2
   flutter_native_splash: ^2.1.1
+  fluttertoast:
+
+
+flutter_native_splash:
+  color: "#42a5f5"
+
+
+
+
+
 
   
 
 
 
 dev_dependencies:
+  change_app_package_name: ^1.0.0
   flutter_test:
     sdk: flutter
+
+
 
   flutter_lints: ^1.0.0
 

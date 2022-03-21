@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/strings.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/screens/sidemenu.dart';
 import 'package:owalaapp/screens/terms-conditions.dart';
 import 'privacy-policy.dart';
 
@@ -10,7 +11,7 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ourAppBar("About"),
+      appBar: ourAppBar("About", SideMenu()),
       body: SafeArea(
         child: Column(
           children: [

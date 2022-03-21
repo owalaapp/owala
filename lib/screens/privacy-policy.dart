@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/strings.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/screens/about-us.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ourAppBar("Privacy Policy"),
+      appBar: ourAppBar("Privacy Policy", AboutUsScreen()),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
