@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:owalaapp/screens/login.dart';
 import 'constants/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:material_color_generator/material_color_generator.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

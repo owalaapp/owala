@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
@@ -6,9 +7,11 @@ import 'package:owalaapp/screens/home.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({Key? key}) : super(key: key);
+  // const SideMenu({Key? key}) : super(key: key);
+  final _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -82,11 +85,17 @@ class SideMenu extends StatelessWidget {
               height: 250.0,
             ),
             OutlinedButton(
-                onPressed: () => showDialog<String>(
-                      context: context,
-                      builder: (BuildContext context) => OurAlertDialog(context,
-                          "Log out", "Are you sure you want to logout?"),
-                    ),
+
+              onPressed: () async{
+                await _auth.signOut();
+                Navigator.pop(context);
+              },
+                // onPressed: () => showDialog<String>(
+                //       context: context,
+                    
+                //       builder: (BuildContext context) => OurAlertDialog(context,
+                //           "Log out", "Are you sure you want to logout?"),
+                //     ),
                 child: Text(
                   "Log out",
                   style: TextStyle(color: Colors.red),
