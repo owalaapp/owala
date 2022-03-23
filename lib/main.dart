@@ -22,6 +22,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: generateMaterialColor(color: primaryColor),
           fontFamily: 'Poppins',
         ),
-        home: LocationPersmissionScreen());
+        home: LocartionPermSc());
   }
 }
