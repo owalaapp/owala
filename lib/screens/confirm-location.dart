@@ -7,7 +7,14 @@ import 'address.dart';
 import 'package:owalaapp/components/dividers.dart';
 
 
-class ComfirmCurrentLocationScreen extends StatelessWidget {
+class ConfirmCurrentLocationScreen extends StatefulWidget {
+  const ConfirmCurrentLocationScreen({ Key? key }) : super(key: key);
+
+  @override
+  State<ConfirmCurrentLocationScreen> createState() => _ConfirmCurrentLocationScreenState();
+}
+
+class _ConfirmCurrentLocationScreenState extends State<ConfirmCurrentLocationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

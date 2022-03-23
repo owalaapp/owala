@@ -4,11 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:form_validator/form_validator.dart';
 import 'package:owalaapp/components/elevatedPrimaryButton.dart';
 import 'package:owalaapp/screens/home.dart';
-import 'package:form_validator/form_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/customtheme.dart';
+import 'package:owalaapp/screens/location-permission.dart';
 import 'package:owalaapp/screens/terms-conditions.dart';
 
 enum MobileVerificationState { SHOW_MOBILE_FORM_STATE, SHOW_OTP_FORM_STATE }
@@ -23,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _form = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
@@ -118,79 +120,99 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20.0,
             ),
             Form(
-              key: _form,
-              child: TextFormField(
-                controller: phoneController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ], // Only numbers can be entered
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: phoneController,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ], // Only numbers can be entered
+                      validator: ValidationBuilder()
+                          .minLength(10, "Please enter correct phone number")
+                          .maxLength(10, 'Please enter correct phone number')
+                          .build(),
 
-                decoration: InputDecoration(
-                    prefixIcon: Image.asset('images/indianFlag.png'),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      // borderSide: BorderSide(color: Colors.grey[200])
+                      decoration: InputDecoration(
+                          prefixIcon: Image.asset('images/indianFlag.png'),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            // borderSide: BorderSide(color: Colors.grey[200])
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                            // borderSide: BorderSide(color: Colors.grey[300])
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                          hintText: "Mobile Number"),
+                      // controller: _phoneController,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8)),
-                      // borderSide: BorderSide(color: Colors.grey[300])
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                    hintText: "Mobile Number"),
-                // controller: _phoneController,
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: SizedBox(
-                  width: primaryBtnWidth,
-                  height: primaryBtnHeight,
-                  child: ElevatedButton(
-                    child: Text(
-                      "Continue",
-                      style: ourPrimaryButtonStyle(),
-                    ),
-                    onPressed: () async {
-                      setState(() {
-                        userPhoneNumber = int.parse(phoneController.text);
-                        showLoading = true;
-                      });
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: SizedBox(
+                          width: primaryBtnWidth,
+                          height: primaryBtnHeight,
+                          child: ElevatedButton(
+                            child: Text(
+                              "Continue",
+                              style: ourPrimaryButtonStyle(),
+                            ),
+                            onPressed: () async {
+                              
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  userPhoneNumber =
+                                      int.parse(phoneController.text);
+                                  showLoading = true;
+                                });
 
-                      await _auth.verifyPhoneNumber(
-                        phoneNumber: '+91' + phoneController.text,
-                        verificationCompleted: (phoneAuthCredential) async {
-                          setState(() {
-                            showLoading = false;
-                          });
-                          //signInWithPhoneAuthCredential(phoneAuthCredential);
-                        },
-                        verificationFailed: (verificationFailed) async {
-                          setState(() {
-                            showLoading = false;
-                          });
-                          // _scaffoldKey.currentState.showSnackBar(SnackBar(
-                          // content: Text(verificationFailed.message)));
-                        },
-                        codeSent: (verificationId, resendingToken) async {
-                          setState(() {
-                            showLoading = false;
-                            currentState =
-                                MobileVerificationState.SHOW_OTP_FORM_STATE;
-                            this.verificationId = verificationId;
-                          });
-                        },
-                        codeAutoRetrievalTimeout: (verificationId) async {},
-                      );
-                    },
-                  ),
-                  // ourElevatedPrimaryBtn(
-                  //      context, getOtpFormWidget(context), "Continue"),
-                ),
-              ),
-            ),
+                                await _auth.verifyPhoneNumber(
+                                  phoneNumber: '+91' + phoneController.text,
+                                  verificationCompleted:
+                                      (phoneAuthCredential) async {
+                                    setState(() {
+                                      showLoading = false;
+            });
+                                    //signInWithPhoneAuthCredential(phoneAuthCredential);
+                                  },
+                                  verificationFailed:
+                                      (verificationFailed) async {
+                                    setState(() {
+                                      showLoading = false;
+                                    });
+                                    // _scaffoldKey.currentState.showSnackBar(SnackBar(
+                                    // content: Text(verificationFailed.message)));
+                                  },
+                                  codeSent:
+                                      (verificationId, resendingToken) async {
+                                    setState(() {
+                                      showLoading = false;
+                                      currentState = MobileVerificationState
+                                          .SHOW_OTP_FORM_STATE;
+                                      this.verificationId = verificationId;
+                                    });
+                                  },
+                                  codeAutoRetrievalTimeout:
+                                      (verificationId) async {},
+                                );
+                                //   final snackBar =
+                                //       SnackBar(content: Text("Submi"));
+                                //   _scaffoldKey.currentState!.showSnackBar(snackBar);
+                                // }
+
+                              }
+                            },
+                          ),
+                          // ourElevatedPrimaryBtn(
+                          //      context, getOtpFormWidget(context), "Continue"),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
@@ -275,6 +297,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           smsCode: otpController.text);
 
                   signInWithPhoneAuthCredential(phoneAuthCredential);
+                  
                 },
                 child: Text(
                   'VERIFY',

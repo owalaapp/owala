@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:owalaapp/screens/location-permission.dart';
 import 'constants/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:owalaapp/screens/login.dart';
@@ -21,6 +22,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: generateMaterialColor(color: primaryColor),
           fontFamily: 'Poppins',
         ),
-        home: LoginScreen());
+        home: LocationPersmissionScreen());
   }
 }

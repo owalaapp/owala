@@ -24,8 +24,11 @@ int deliveryTime = 30;
 // USER
 String userName = 'Dev Garg';
 int userPhoneNumber = 1234567890;
-String userDeliveryArea = '887/31, Laxman vihar phase 1';
+String userDeliveryArea = 'My address';
 String productChoosed = 'vegetable';
+String userLatitude = '';
+String userLongitude = '';
+
 
 
 double h1FontSize = 96.0;
@@ -37,6 +40,8 @@ double h6FontSize = 20.0;
 double body1FontSize = 16.0;
 double body2FontSize = 14.0;
 
+
+double centreIllustrationWidth = 30.0;
 
 const ourContactNumber = '917042625705';
 const ourEmailId = 'contact@owalain.com';

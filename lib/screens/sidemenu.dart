@@ -9,10 +9,15 @@ import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SideMenu extends StatelessWidget {
-  // const SideMenu({Key? key}) : super(key: key);
-  final _auth = FirebaseAuth.instance;
 
+class SideMenu extends StatefulWidget {
+  const SideMenu({ Key? key }) : super(key: key);
+
+  @override
+  State<SideMenu> createState() => _SideMenuState();
+}
+
+class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,5 +117,8 @@ class SideMenu extends StatelessWidget {
         ),
       ),
     );
+
   }
 }
+
+
