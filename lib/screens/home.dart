@@ -1,3 +1,4 @@
+import 'package:double_back_to_close/double_back_to_close.dart';
 import 'package:flutter/material.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:geolocator/geolocator.dart';
@@ -27,125 +28,128 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Image.asset('images/owalaWhiteLogo.png'),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
-            child: Column(
-              children: [
-                Row(children: [
-                  Icon(Icons.location_on),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
-                    "Delivery in $deliveryTime minutes",
-                  ),
-                  SizedBox(
-                    width: 85.0,
-                  ),
-                  GestureDetector(
-                    child: Icon(Icons.menu,
-                    size: 40.0,
-                    color: Colors.grey,
+    return DoubleBack(
+      message: backToast,
+      child: Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: Image.asset('images/owalaWhiteLogo.png'),
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+              child: Column(
+                children: [
+                  Row(children: [
+                    Icon(Icons.location_on),
+                    SizedBox(
+                      width: 10.0,
                     ),
-                  onTap: () => {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SideMenu()))
-
-                  },
-        
-                  
-                  
+                    Text(
+                      "Delivery in $deliveryTime minutes",
+                    ),
+                    SizedBox(
+                      width: 85.0,
+                    ),
+                    GestureDetector(
+                      child: Icon(Icons.menu,
+                      size: 40.0,
+                      color: Colors.grey,
+                      ),
+                    onTap: () => {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SideMenu()))
+    
+                    },
+          
+                    
+                    
+                    )
+                  ]),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SvgPicture.asset('images/homeTopBannerA.svg'),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  ourCTA(
+                      'vegetable-cart',
+                      'Vegetable Cart',
+                      'Get fresh & hygenic vegetables.',
+                      vegetableCartServiceCharge),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  ourCTA(
+                      'fruitCart',
+                      'Fruits Cart',
+                      'Get seasonal & juicy fruits at door',
+                      fruitsCartServiceCharge),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  // ourSectionTitles("Around you"),
+                  Container(
+                      // child: _position != null ? Text('Current Location: ' + _position.toString()) : Text('No Location Data'),
+                      ),
+                  ourSectionTitles("Offers"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ourHomeOffers('offer-a.svg'),
+                      ourHomeOffers('offer-b.svg'),
+                    ],
                   )
-                ]),
-                SizedBox(
-                  height: 20.0,
-                ),
-                SvgPicture.asset('images/homeTopBannerA.svg'),
-                SizedBox(
-                  height: 40.0,
-                ),
-                ourCTA(
-                    'vegetable-cart',
-                    'Vegetable Cart',
-                    'Get fresh & hygenic vegetables.',
-                    vegetableCartServiceCharge),
-                SizedBox(
-                  height: 20.0,
-                ),
-                ourCTA(
-                    'fruitCart',
-                    'Fruits Cart',
-                    'Get seasonal & juicy fruits at door',
-                    fruitsCartServiceCharge),
-                SizedBox(
-                  height: 40.0,
-                ),
-                // ourSectionTitles("Around you"),
-                Container(
-                    // child: _position != null ? Text('Current Location: ' + _position.toString()) : Text('No Location Data'),
-                    ),
-                ourSectionTitles("Offers"),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ourHomeOffers('offer-a.svg'),
-                    ourHomeOffers('offer-b.svg'),
-                  ],
-                )
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-        // bottomNavigationBar: BottomNavigationBar(
-        //   currentIndex: ourCurrentIndex,
-        //   items: [
-        //     ourBottomNavigation(ourIcon: Icon(Icons.home), ourLabel: 'home'),
-        //     ourBottomNavigation(
-        //         ourIcon: Icon(Icons.feedback), ourLabel: 'contact us'),
-        //     ourBottomNavigation(
-        //         ourIcon: Icon(Icons.account_circle), ourLabel: 'account'),
-        //   ],
-        //   onTap: (index) {
-        //     setState(() {
-              
-              
-        //         if (ourCurrentIndex == 0) {
-        //           Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //                 builder: (context) => HomeScreen()),
-        //           );
-        //         }
-
-
-        //         if (ourCurrentIndex == 1) {
-        //           Navigator.push(
-        //             context,
-        //             MaterialPageRoute(
-        //                 builder: (context) => CustomerSupportScreen()),
-        //           );
-        //         }
-
-
-        //       ourCurrentIndex = index;
-        //       if (ourCurrentIndex == 2) {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(builder: (context) => SideMenu()),
-        //         );
-        //       }
-
-              
-        //     });
-        //   },
-        // )
-        );
+          // bottomNavigationBar: BottomNavigationBar(
+          //   currentIndex: ourCurrentIndex,
+          //   items: [
+          //     ourBottomNavigation(ourIcon: Icon(Icons.home), ourLabel: 'home'),
+          //     ourBottomNavigation(
+          //         ourIcon: Icon(Icons.feedback), ourLabel: 'contact us'),
+          //     ourBottomNavigation(
+          //         ourIcon: Icon(Icons.account_circle), ourLabel: 'account'),
+          //   ],
+          //   onTap: (index) {
+          //     setState(() {
+                
+                
+          //         if (ourCurrentIndex == 0) {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => HomeScreen()),
+          //           );
+          //         }
+    
+    
+          //         if (ourCurrentIndex == 1) {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => CustomerSupportScreen()),
+          //           );
+          //         }
+    
+    
+          //       ourCurrentIndex = index;
+          //       if (ourCurrentIndex == 2) {
+          //         Navigator.push(
+          //           context,
+          //           MaterialPageRoute(builder: (context) => SideMenu()),
+          //         );
+          //       }
+    
+                
+          //     });
+          //   },
+          // )
+          ),
+    );
 
   }
 

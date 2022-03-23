@@ -23,6 +23,7 @@ dependencies:
   google_maps_flutter: ^2.1.2
   flutter_native_splash: ^2.1.1
   fluttertoast:
+  double_back_to_close: ^2.0.0
 
 
 flutter_native_splash:

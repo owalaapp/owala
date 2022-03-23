@@ -26,9 +26,11 @@ String userName = 'Dev Garg';
 int userPhoneNumber = 1234567890;
 String userDeliveryArea = 'My address';
 String productChoosed = 'vegetable';
-String userLatitude = '';
-String userLongitude = '';
 
+
+double userLatitude =   0.0;
+double userLongitude = 0.0;
+String userPincode = '';
 
 
 double h1FontSize = 96.0;
@@ -42,6 +44,12 @@ double body2FontSize = 14.0;
 
 
 double centreIllustrationWidth = 30.0;
+
+
+// TOASTS
+String backToast = 'Press back again to close';
+
+
 
 const ourContactNumber = '917042625705';
 const ourEmailId = 'contact@owalain.com';

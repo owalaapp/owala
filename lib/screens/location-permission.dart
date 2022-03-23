@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/screens/login.dart';
+import 'package:owalaapp/screens/nodeliverylocation.dart';
 
 
 class LocartionPermSc extends StatefulWidget {
@@ -11,6 +15,23 @@ class LocartionPermSc extends StatefulWidget {
 }
 
 class _LocartionPermSc extends State<LocartionPermSc> {
+
+@override
+void initState()  {
+    super.initState();
+    asLocationFinder();
+
+  }
+
+void asLocationFinder() async {
+    Position position = await _getGeoLocationPosition();
+    userLatitude = position.latitude;
+    userLongitude = position.longitude;
+
+              location ='Lat: ${userLatitude} Lon: ${userLongitude} , Long: $userLatitude';
+              GetAddressFromLatLong(position);
+} 
+
 
   String location ='Null, Press Button';
   String Address = 'search';
@@ -57,6 +78,17 @@ class _LocartionPermSc extends State<LocartionPermSc> {
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     print(placemarks);
     Placemark place = placemarks[0];
+    userPincode = place.postalCode.toString();
+
+    if(userPincode != '122001'){
+       Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LocationNotServicable()));
+    }
+
+    else {
+       Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    }
     Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
     setState(()  {
     });
@@ -76,11 +108,8 @@ class _LocartionPermSc extends State<LocartionPermSc> {
             Text('ADDRESS',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
             SizedBox(height: 10,),
             Text('${Address}'),
-            ElevatedButton(onPressed: () async{
-              Position position = await _getGeoLocationPosition();
-              location ='Lat: ${position.latitude} , Long: ${position.longitude}';
-              GetAddressFromLatLong(position);
-            }, child: Text('Get Location'))
+            Text('Pincode : $userPincode')
+         
           ],
         ),
       ),
