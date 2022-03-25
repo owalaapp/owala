@@ -1,13 +1,13 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:owalaapp/screens/home.dart';
+import 'package:owalaapp/screens/recent-orders.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:owalaapp/constants/user.dart';
 
 
 class SideMenu extends StatefulWidget {
@@ -33,15 +33,16 @@ class _SideMenuState extends State<SideMenu> {
                   backgroundColor: Colors.white,
                   minRadius: 35.0,
                   backgroundImage: AssetImage('images/profileAvatar.png'),
+                  
                 ),
                 SizedBox(
-                  width: 20.0,
+                  width: spacer2,
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      userName,
+                      'Hello, $userName',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: h5FontSize),
                     ),
@@ -77,11 +78,23 @@ class _SideMenuState extends State<SideMenu> {
             ListTile(
               textColor: Colors.black,
               leading: Icon(Icons.info),
-              title: Text("About"),
+              title: Text("about"),
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => AboutUsScreen()),
+                );
+              },
+            ),
+
+                 ListTile(
+              textColor: Colors.black,
+              leading: Icon(Icons.shopping_basket),
+              title: Text("recent Orders"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RecentOrdersScreen()),
                 );
               },
             ),
@@ -107,11 +120,11 @@ class _SideMenuState extends State<SideMenu> {
                 )),
 
             SizedBox(
-              height: 20.0,
+              height: spacer2,
             ),
             Text(
               "App version 1.0.0+1",
-              style: TextStyle(color: Colors.grey[500]),
+              style: TextStyle(color: secondaryText),
             )
           ]),
         ),

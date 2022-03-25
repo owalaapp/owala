@@ -1,11 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:owalaapp/constants/constants.dart';
+
 import 'package:owalaapp/screens/login.dart';
 import 'package:owalaapp/screens/nodeliverylocation.dart';
-
+import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/constants/user.dart';
 
 class LocartionPermSc extends StatefulWidget {
   const LocartionPermSc({Key? key}) : super(key: key);
@@ -15,26 +16,21 @@ class LocartionPermSc extends StatefulWidget {
 }
 
 class _LocartionPermSc extends State<LocartionPermSc> {
-
-@override
-void initState()  {
+  @override
+  void initState() {
     super.initState();
     asLocationFinder();
-
   }
 
-void asLocationFinder() async {
+  void asLocationFinder() async {
     Position position = await _getGeoLocationPosition();
     userLatitude = position.latitude;
     userLongitude = position.longitude;
 
-              location ='Lat: ${userLatitude} Lon: ${userLongitude} , Long: $userLatitude';
-              GetAddressFromLatLong(position);
-} 
+    GetAddressFromLatLong(position);
+  }
 
-
-  String location ='Null, Press Button';
-  String Address = 'search';
+  bool showLoading = false;
 
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -71,185 +67,77 @@ void asLocationFinder() async {
 
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
   }
 
-  Future<void> GetAddressFromLatLong(Position position)async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-    print(placemarks);
+  Future<void> GetAddressFromLatLong(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+
     Placemark place = placemarks[0];
     userPincode = place.postalCode.toString();
+    userCountry = place.country.toString();
+    userCity = place.locality.toString();
+    userStreet = place.street.toString();
+    userSubLocality = place.subLocality.toString();
 
-    if(userPincode != '122001'){
-       Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LocationNotServicable()));
+    if (userPincode != '122001') {
+    Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LocationNotServicable()));
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LoginScreen()));
     }
-
-    else {
-       Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
-    }
-    Address = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}';
-    setState(()  {
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Coordinates Points',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
-            Text(location,style: TextStyle(color: Colors.black,fontSize: 16),),
-            SizedBox(height: 10,),
-            Text('ADDRESS',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold),),
-            SizedBox(height: 10,),
-            Text('${Address}'),
-            Text('Pincode : $userPincode')
-         
-          ],
+  return WillPopScope(
+      onWillPop: () async {
+        return true;
+    },
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset('images/locationPerm.svg',
+                    width: centreIllheight),
+                SizedBox(
+                  height: spacer2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.location_on),
+                    Text(
+                      "Location",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: h6FontSize, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: spacer1,
+                ),
+                Text(
+                  'Please enable location permission to have an\neasy experience with our delivery.',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: spacer3,
+                ),
+                Center(child: CircularProgressIndicator()),
+              ],
+            ),
+          ),
         ),
       ),
     );
   }
 }
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:flutter_svg/parser.dart';
-// import 'package:geolocator/geolocator.dart';
-// // import 'package:geocoder/geocoder.dart';
-// import 'package:owalaapp/components/elevatedPrimaryButton.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:owalaapp/constants/constants.dart';
-// import '../constants/customtheme.dart';
-
-// class LocationPersmissionScreen extends StatefulWidget {
-//   const LocationPersmissionScreen({Key? key}) : super(key: key);
-
-//   @override
-//   State<LocationPersmissionScreen> createState() =>
-//       _LocationPersmissionScreenState();
-// }
-
-
-
-
-// class _LocationPersmissionScreenState extends State<LocationPersmissionScreen> {
-
-// // Will store the position once you fetch it
-//   Position? _position;
-//   String userLocation = 'My Address';
-//   String add1 = '';
-//   String add2 = '';
-
-//   void _getCurrentLocation() async {
-//     Position position = await _determinePosition();
-//     setState(() {
-//       _position = position;
-//     });
-//   }
-  
-
-//     getAdressBasedOnLocation() async { 
-//       // final coordinates =  new Coordinates(12.982030, 77.593540);
-//       // var address = await Geocoder.local.findAddressesFromCoordinates(coordinates);
-     
-//      setState(() {
-       
-//       // add1 = address.first.featureName;
-//       // add2 = address.first.addressLine;
-//      });
-//     }
-
-
-//   Future<Position> _determinePosition() async {
-//     LocationPermission permission;
-
-//     permission = await Geolocator.checkPermission();
-
-
-//     if(permission == LocationPermission.denied) {
-//       permission = await Geolocator.requestPermission();
-//       if(permission == LocationPermission.denied) {
-//         return Future.error('Location Permissions are denied');
-//       }
-
-//     else {
-      
-//     }
-//     }
-
-//     return await Geolocator.getCurrentPosition();
-//   }
-
-
-//     @override
-//     void initState() {
-//     super.initState();
-//     _getCurrentLocation();
-//   } 
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SafeArea(
-//         child: Padding(
-//           padding: const EdgeInsets.only(top: 20.0),
-//           child: Center(
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                SvgPicture.asset(
-//                 'images/locationPerm.svg',
-//                 width: 125.0,
-//               ),
-//                  SizedBox(
-//                   height: centreIllustrationWidth,
-//                 ),
-//                 Text('Welcome',
-//                 style: TextStyle(
-//                   fontSize: h4FontSize,
-//                   fontWeight: FontWeight.bold,
-//                 ),),
-             
-//                 Text(
-//                     'Please enable location permission\nfor a better delivery experience.',
-//                     textAlign: TextAlign.center,
-                  
-//                     ),
-
-//                 SizedBox(
-//                   height: 50.0,
-//                 ),
-
-//                 ElevatedButton(onPressed: _getCurrentLocation,
-//                  child: Text("Allow Location")),
-//                  Center(child: 
-//                  Text(userLocation),
-//                  ),
-
-//                  Center(
-//                             child : Text(add1)
-
-//         // child: _position != null ? Text('Current Location: ' + _position.toString()) : Text('No Location Data'),
-//       ),
-
-//       Column (children: [
-//         Text(add1),
-//                 Text(add2),
-
-
-//       ],)
-//                           ],
-
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

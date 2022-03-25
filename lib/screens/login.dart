@@ -6,6 +6,7 @@ import 'package:owalaapp/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:owalaapp/components/elevatedPrimaryButton.dart';
+import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/screens/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/customtheme.dart';
@@ -25,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _form = GlobalKey<FormState>();
   final _formKey = GlobalKey<FormState>();
+  final _otpFormKey = GlobalKey<FormState>();
 
   final phoneController = TextEditingController();
   final otpController = TextEditingController();
@@ -106,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Center(
               child: Text(
-                "India's #1st Cart\nHailing App",
+                "India's #1st Moving Shops",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.w900, fontSize: h5FontSize),
@@ -161,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ourPrimaryButtonStyle(),
                             ),
                             onPressed: () async {
-                              
                               if (_formKey.currentState!.validate()) {
                                 setState(() {
                                   userPhoneNumber =
@@ -175,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       (phoneAuthCredential) async {
                                     setState(() {
                                       showLoading = false;
-            });
+                                    });
                                     //signInWithPhoneAuthCredential(phoneAuthCredential);
                                   },
                                   verificationFailed:
@@ -269,7 +270,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(
-              height: 40.0,
+              height: spacer3,
             ),
             SvgPicture.asset(
               'images/otp-verification-ill.svg',
@@ -280,27 +281,38 @@ class _LoginScreenState extends State<LoginScreen> {
               '+91 $userPhoneNumber',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            TextFormField(
-                controller: otpController,
-                decoration: InputDecoration(hintText: 'Enter OTP')),
             SizedBox(
-              height: 50.0,
+              height: spacer1,
+            ),
+            Form(
+              key: _otpFormKey,
+              child: TextFormField(
+                  controller: otpController,
+                  validator: ValidationBuilder()
+                      .minLength(6, 'Please enter just 6 digits')
+                      .maxLength(7, 'Please enter just 6 digits')
+                      .build(),
+                  decoration: InputDecoration(hintText: 'Enter OTP')),
+            ),
+            SizedBox(
+              height: spacer3,
             ),
             SizedBox(
               width: primaryBtnWidth,
               height: primaryBtnHeight,
               child: ElevatedButton(
                 onPressed: () async {
-                  PhoneAuthCredential phoneAuthCredential =
-                      PhoneAuthProvider.credential(
-                          verificationId: verificationId,
-                          smsCode: otpController.text);
+                  if (_otpFormKey.currentState!.validate()) {
+                    PhoneAuthCredential phoneAuthCredential =
+                        PhoneAuthProvider.credential(
+                            verificationId: verificationId,
+                            smsCode: otpController.text);
 
-                  signInWithPhoneAuthCredential(phoneAuthCredential);
-                  
+                    signInWithPhoneAuthCredential(phoneAuthCredential);
+                  }
                 },
                 child: Text(
-                  'VERIFY',
+                  'Verify',
                   style: ourPrimaryButtonStyle(),
                 ),
               ),
@@ -315,19 +327,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        key: _scaffoldKey,
-        body: Container(
-          child: showLoading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
-                  ? getMobileFormWidget(context)
-                  : getOtpFormWidget(context),
-          padding: const EdgeInsets.all(16),
-        ));
+    return WillPopScope(
+      onWillPop: () async {
+        return true;
+      },
+      child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          key: _scaffoldKey,
+          body: Container(
+            child: showLoading
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
+                    ? getMobileFormWidget(context)
+                    : getOtpFormWidget(context),
+            padding: const EdgeInsets.all(16),
+          )),
+    );
   }
 
   TextStyle ourConditonsText(weight, ourFontStyle, ourFontSize) {

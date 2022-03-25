@@ -2,19 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/components/elevatedPrimaryButton.dart';
-import 'package:owalaapp/screens/home.dart';
-import 'address.dart';
+import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/components/dividers.dart';
+
+// SCREENS
+import 'package:owalaapp/screens/address.dart';
+import 'package:owalaapp/screens/home.dart';
+
 
 
 class ConfirmCurrentLocationScreen extends StatefulWidget {
-  const ConfirmCurrentLocationScreen({ Key? key }) : super(key: key);
+  const ConfirmCurrentLocationScreen({Key? key}) : super(key: key);
 
   @override
-  State<ConfirmCurrentLocationScreen> createState() => _ConfirmCurrentLocationScreenState();
+  State<ConfirmCurrentLocationScreen> createState() =>
+      _ConfirmCurrentLocationScreenState();
 }
 
-class _ConfirmCurrentLocationScreenState extends State<ConfirmCurrentLocationScreen> {
+class _ConfirmCurrentLocationScreenState
+    extends State<ConfirmCurrentLocationScreen> {
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +55,6 @@ class _ConfirmCurrentLocationScreenState extends State<ConfirmCurrentLocationScr
                     "Change",
                   )),
                 ),
-
               ],
             ),
             SizedBox(

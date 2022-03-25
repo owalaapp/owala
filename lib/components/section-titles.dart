@@ -3,7 +3,7 @@ import 'package:owalaapp/constants/constants.dart';
 
 Container ourSectionTitles(ourText) {
     return Container(
-      width: 330.0,
+      alignment: Alignment.center,
       child: Text(
         ourText,
         style: TextStyle(fontSize: h5FontSize,

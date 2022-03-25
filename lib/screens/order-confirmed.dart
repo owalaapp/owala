@@ -1,80 +1,114 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/components/dividers.dart';
 import 'package:owalaapp/constants/constants.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:owalaapp/screens/home.dart';
+import 'package:owalaapp/constants/products.dart';
+import 'package:owalaapp/constants/user.dart';
+
 import 'package:owalaapp/components/section-titles.dart';
 import 'package:owalaapp/components/cards.dart';
 
-class OrderConfirmedScreen extends StatelessWidget {
+// Screens
+import 'package:owalaapp/screens/home.dart';
+
+
+class OrderConfirmedScreen extends StatefulWidget {
+  const OrderConfirmedScreen({ Key? key }) : super(key: key);
+
+  @override
+  State<OrderConfirmedScreen> createState() => _OrderConfirmedScreenState();
+}
+
+class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
+
+  
+  String orderDetailsForUs = '$userName has ordered $productChoosed';
+  @override
+  void initState() {
+  //  launch(whatsappLinkOrderDetailsForUs);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+         var random =  Random();
+    int min = 000000;
+    int max = 999999;
+    userRecentOrderId = min + random.nextInt(max - min);
+  
+
     return Scaffold(
-      appBar: ourAppBar("Order Details", HomeScreen()),
+            appBar: ourAppBar("Order Details", HomeScreen()),
+
       body: SafeArea(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: leftRightPadding, vertical: 20.0),
-          child: Column(children: [
-            Center(child: Image.asset('images/confirmedSticker.gif')),
-            Text(
-              'Order Confirmed!',
-              style:
-                  TextStyle(fontSize: h4FontSize, fontWeight: FontWeight.bold),
-            ),
-            Container(
-              child: ourDividerA(),
-            ),
-            ourSectionTitles('Your order details'),
-            textCardGapper(),
-
-            ListTile(
-              leading: Image.asset('images/$productChoosed-cart.png'),
-              title: Text('$productChoosed Cart'),
-              subtitle: Text(
-                  'your cart will arrive with in $deliveryTime mins at your doorstep.'),
-              trailing: Text(
-                'Rs.$vegetableCartServiceCharge',
-                style: TextStyle(fontWeight: FontWeight.bold),
+            child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+            child: Column(children: [
+              Center(child: SvgPicture.asset('images/confirmedSticker.svg')),
+              SizedBox(
+                height: spacer2,
               ),
-            ),
-            Container(
-              child: ourDividerA(),
-            ),
-            // ourConfirmedListTiles('userIcon', '$userName, $userPhoneNumber', ''),
-            ourConfirmedListTiles(
-                'locationPinIll', 'Delivery Address', '$userDeliveryArea'),
-
-            Container(
-              child: ourDividerA(),
-            ),
-
-            ourSectionTitles('👋 Need help with order?'),
-
-            textCardGapper(),
-            Card(
-              child: supportCards(Icons.safety_divider, 'Chat with us',
-                  'were here for you ', chatWithUs),
-            ),
-
-            SizedBox(
-              height: 100.0,
-            )
-          ]),
-        ),
-      )),
+              Text(
+                'Order Confirmed!',
+                style:
+                    TextStyle(fontSize: h4FontSize, fontWeight: FontWeight.bold),
+              ),
+              Container(
+                child: ourDividerA(),
+              ),
+              ourSectionTitles('Your order details'),
+              SizedBox(
+                height: spacer2,
+              ),
+              Text("Order Id: #$userRecentOrderId"),
+              ListTile(
+                leading: Image.asset('images/$productChoosed-cart.png'),
+                title: Text('$productChoosed Cart'.toUpperCase()),
+                subtitle: Text(
+                    'Our owala captain wil contact you shortly via call or whatsapp.'),
+                trailing: Text(
+                  'Rs.$vegetableCartServiceCharge',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                
+              ),
+              Container(
+                child: ourDividerA(),
+              ),
+              // ourConfirmedListTiles('userIcon', '$userName, $userPhoneNumber', ''),
+              ourConfirmedListTiles(
+                  'locationPinIll', 'Delivery Address', userFinalComplteAddress),
+    
+              Container(
+                child: ourDividerA(),
+              ),
+    
+              ourSectionTitles('👋 Need help with order?'),
+    
+              Card(
+                child: supportCards(Icons.safety_divider, 'Chat with us',
+                    "we're here for you ", chatWithUs),
+              ),
+    
+              SizedBox(
+                height: spacer3 + spacer3,
+              )
+            ]),
+          ),
+        )),
     );
-  }
 
-  SizedBox textCardGapper() {
-    return SizedBox(
-      height: 10.0,
-    );
+      
   }
-
+  
   ListTile ourConfirmedListTiles(ourImage, ourText, ourSubTitle) {
     return ListTile(
       leading: SvgPicture.asset(
@@ -86,7 +120,12 @@ class OrderConfirmedScreen extends StatelessWidget {
     );
   }
 
+
   void chatWithUs() async {
     launch(whatsappLink);
   }
+  
+
 }
+
+

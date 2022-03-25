@@ -15,7 +15,7 @@ class PrivacyPolicyScreen extends StatelessWidget {
             children: [
               Image.network('https://firebasestorage.googleapis.com/v0/b/owala-8dc48.appspot.com/o/privacyPolicyTopBanner.png?alt=media&token=a526a81f-e4ea-40ac-80b4-70cdf7b01ec0'),
               SizedBox(
-                height: 20.0,
+                height: spacer2,
               ),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: leftRightPadding, vertical: topBottomLayoutPadding),

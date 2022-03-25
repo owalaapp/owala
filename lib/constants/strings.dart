@@ -1,5 +1,5 @@
 String aboutUs =
-    'Owala is India\'s first carts booking place where people can get fresh fruits and vegetables at door step.';
+  "Owala is India\'s first carts booking place where people can get fresh and hygenic fruits and vegetables at thier door step.\n\nWith Owala we can enjoy the experience of hand picking hygenic and fresh items instead of just window shopping. We are a Startup with a mission & vision and we also want to make 'vocal for local' to the next level";
 
 String privacyAndPolicyText =  '''Privacy Policy
 Last updated: March 19, 2022

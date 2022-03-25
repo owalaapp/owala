@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:owalaapp/screens/otp-verification.dart';
 
   ElevatedButton ourElevatedPrimaryBtn(BuildContext context, toScreen, ourText) {
     return ElevatedButton(

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:owalaapp/screens/location-permission.dart';
-import 'constants/constants.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:owalaapp/screens/login.dart';
 import 'package:material_color_generator/material_color_generator.dart';
+
+import 'package:owalaapp/screens/location-permission.dart';
+
+import 'constants/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

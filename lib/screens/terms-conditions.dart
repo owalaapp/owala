@@ -1,15 +1,12 @@
-import 'package:owalaapp/constants/strings.dart';
-import 'package:owalaapp/constants/customtheme.dart';
-import 'package:owalaapp/constants/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:owalaapp/screens/home.dart';
-import 'package:google_fonts/google_fonts.dart';
+
+import 'package:owalaapp/constants/strings.dart';
+import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/components/appbar.dart';
+import 'package:owalaapp/screens/about-us.dart';
 
-import 'about-us.dart';
 
-
-class TermsConditions extends StatelessWidget {
+class TermsConditionsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +18,7 @@ class TermsConditions extends StatelessWidget {
             children: [
               Image.asset('images/termsBannerTop.png'),
               SizedBox(
-                height: 20.0,
+                height: spacer2,
               ),
               Padding(
                 padding:  EdgeInsets.symmetric(horizontal: leftRightPadding, vertical: topBottomLayoutPadding),

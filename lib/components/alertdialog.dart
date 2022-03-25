@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:owalaapp/main.dart';
+import 'package:owalaapp/screens/login.dart';
+
 
 final _auth = FirebaseAuth.instance;
 
@@ -12,13 +14,15 @@ final _auth = FirebaseAuth.instance;
         actions: <Widget>[
           TextButton(
             onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
+            child: const Text('Cancel',
+            ),
           ),
           TextButton(
              onPressed: () async {
                   await _auth.signOut();
+                       currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyApp()));
+                      MaterialPageRoute(builder: (context) => LoginScreen()));
                 },
             // onPressed: () => Navigator.pop(context, 'Yes'),
             child: const Text('Yes',
