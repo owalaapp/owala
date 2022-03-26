@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/components/titleImageScreen.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/products.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/screens/order-confirmed.dart';
 import 'package:owalaapp/screens/sidemenu.dart';
-
-enum OrdersState { SHOW_RECENT_ORDER, SHOW_NO_ORDERS_YET }
 
 // OrdersState currentState =
 //     OrdersState.SHOW_NO_ORDERS_YET;
@@ -25,8 +25,8 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
         child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
-            child: imageTitleScreenWidget('images/no-orders-yet.svg',
-                "No orders yet", 'Place your first order')));
+            child: imageTitleScreenWidget(
+                noOrdersIll, "No orders yet", 'Place your first order')));
   }
 
   SafeArea RcentOrdersWidget(context) {
@@ -43,15 +43,16 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
                 border: Border.all(width: 1.0, color: dividerColor)),
             child: ListTile(
               leading: Image.asset(productAimage),
-            title: Text(userRecentOrderId.toString()),
-            subtitle: Text(),
-            trailing: Icon(Icons.chevron_right),
-            onTap: () {
+              title: Text(userRecentOrderId.toString()),
+              // subtitle: Text(),
+              trailing: ourSecondaryIcon(go),
+              onTap: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => OrderConfirmedScreen()),
-              );
-            },
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => OrderConfirmedScreen()),
+                );
+              },
             ),
           )
         ],
@@ -66,7 +67,7 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
       body: Container(
         child: notEvenSingleOrderYet
             ? noOrdersYetWidget(context)
-            : RcentOrdersWidget(context),
+            : OrderConfirmedScreen(),
       ),
     );
   }

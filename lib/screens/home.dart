@@ -1,32 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:owalaapp/components/logoappbar.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/products.dart';
 import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/components/section-titles.dart';
 import 'package:owalaapp/screens/address.dart';
+import 'package:owalaapp/screens/location-permission.dart';
+import 'package:owalaapp/models/user.dart';
 
 // SCREENS
+
 import 'package:owalaapp/screens/sidemenu.dart';
-import 'package:owalaapp/screens/confirm-location.dart';
 
 // import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  // const HomeScreen({Key? key}) : super(key: key);
+
+  final String userLocationValue;
+  const HomeScreen({
+    Key? key,
+    required this.userLocationValue,
+  }) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 bool askForName = true;
+bool gotUserLocation = false;
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int ourCurrentIndex = 0;
   final _formAskNameKey = GlobalKey<FormState>();
   final userNameGot = TextEditingController();
@@ -43,11 +53,23 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }
 
+    if (gotUserLocation == ', , , ...') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => LocartionPermSc()));
+    } else {
+      gotUserLocation = true;
+    }
+
     super.initState();
   }
 
+  // Map locationShowDa = 'FETCHING';
+
+  // Map locationShowDa = {};
+
   @override
   Widget build(BuildContext context) {
+    // locationShowDa = ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
       appBar: logoAppBar(),
       body: SingleChildScrollView(
@@ -57,26 +79,38 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      color: primaryColor,
-                    ),
-                    SizedBox(
-                      width: 10.0,
-                    ),
-                    Text(
-                      userDeliveryArea,
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LocartionPermSc()));
+                  },
+                  child: Row(
+                    children: [
+                      ourPrimaryIcon(locationIcon, primaryColor),
+                      SizedBox(
+                        width: spacer1,
+                      ),
+                      Container(
+                        width: 200.0,
+                        child: gotUserLocation
+                            ? Text(
+                                widget.userLocationValue,
+                                overflow: TextOverflow.ellipsis,
+                              )
+                            : Text('fetching...'),
+                      ),
+
+                      // if(gotUserLocation == false){
+                      // asLocationFinder();
+
+                      // }
+                    ],
+                  ),
                 ),
                 GestureDetector(
-                  child: Icon(
-                    Icons.menu,
-                    size: spacer3,
-                    color: iconColorGrey,
-                  ),
+                  child: ourPrimaryIcon(sideMenuIcon, defaultIconColor),
                   onTap: () => {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => SideMenu()))
@@ -90,12 +124,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: spacer3,
               ),
-              ourCTA('vegetable-cart', '$productAName Cart',
+              ourCTA(vegetablesCartCta, '$productAName Cart',
                   productADescription, vegetableCartServiceCharge, true),
               SizedBox(
                 height: spacer2,
               ),
-              ourCTA('fruitCart', '$productBName Cart', productBDescription,
+              ourCTA(fruitsCartCta, '$productBName Cart', productBDescription,
                   fruitsCartServiceCharge, false),
               SizedBox(
                 height: spacer3 + spacer2,
@@ -104,8 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ourHomeOffers('offer-a.svg'),
-                  ourHomeOffers('offer-b.svg'),
+                  ourHomeOffers(offerAImgHome),
+                  ourHomeOffers(offerBImgHome),
                 ],
               )
             ],
@@ -115,11 +149,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  SizedBox ourHomeOffers(ourImage) {
-    return SizedBox(
-      width: 170.0,
+  Expanded ourHomeOffers(ourImage) {
+    return Expanded(
       child: SvgPicture.asset(
-        'images/$ourImage',
+        ourImage,
       ),
     );
   }
@@ -137,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           },
-          leading: Image.asset('images/$ourImage.png'),
+          leading: Image.asset(ourImage),
           title: Text(ourTitle),
           subtitle: Text(ourSubTitle),
           trailing: Text('Rs.$charges'),
@@ -158,6 +191,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       if (_formAskNameKey.currentState!.validate()) {
                         setState(() {
                           userName = userNameGot.text.toString();
+                          creatUser(userName: userName);
+
                           Navigator.of(context, rootNavigator: true)
                               .pop('dialog');
                         });
@@ -176,4 +211,31 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ));
+
+  Future creatUser({required String userName}) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc();
+
+    // final json = {
+    //   'name': name,
+    //   'phone-number': userPhoneNumber,
+    //   'pin-code': userPincode,
+    //   'user-city': userCity,
+    //   'country': userCountry,
+    //   'date-joined': formattedDateJoined
+    // };
+
+    final user = User(
+        id: docUser.id,
+        userFullName: userName,
+        userCity: userCity,
+        userPhoneNumber: userPhoneNumber.toString(),
+        userPinCode: userPincode,
+        userCountry: userCountry,
+        userDateJoined: DateTime.now().toString());
+
+    final json = user.toJson();
+
+    // Create documant and write data to direbase
+    await docUser.set(json);
+  }
 }

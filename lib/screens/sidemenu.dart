@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/constants/ouricons.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:owalaapp/screens/home.dart';
 import 'package:owalaapp/screens/recent-orders.dart';
+import 'package:image_picker/image_picker.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
 import 'package:owalaapp/constants/user.dart';
 
-
 class SideMenu extends StatefulWidget {
-  const SideMenu({ Key? key }) : super(key: key);
+  // const SideMenu({Key? key}) : super(key: key);
 
   @override
   State<SideMenu> createState() => _SideMenuState();
 }
 
+final ImagePicker _picker = ImagePicker();
+
 class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ourAppBar("My Account", HomeScreen()),
+      appBar: ourAppBar(
+          "My Account", HomeScreen(userLocationValue: userDeliveryArea)),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -29,11 +34,13 @@ class _SideMenuState extends State<SideMenu> {
           child: Column(children: [
             Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  minRadius: 35.0,
-                  backgroundImage: AssetImage('images/profileAvatar.png'),
-                  
+                GestureDetector(
+                  onTap: () {},
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    minRadius: 35.0,
+                    backgroundImage: AssetImage(defaulUserProfileImage),
+                  ),
                 ),
                 SizedBox(
                   width: spacer2,
@@ -62,42 +69,11 @@ class _SideMenuState extends State<SideMenu> {
             //   },
             // ),
 
-            ListTile(
-              textColor: Colors.black,
-              leading: Icon(Icons.live_help),
-              title: Text("support"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CustomerSupportScreen()),
-                );
-              },
-            ),
-
-            ListTile(
-              textColor: Colors.black,
-              leading: Icon(Icons.info),
-              title: Text("about"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AboutUsScreen()),
-                );
-              },
-            ),
-
-                 ListTile(
-              textColor: Colors.black,
-              leading: Icon(Icons.shopping_basket),
-              title: Text("recent Orders"),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RecentOrdersScreen()),
-                );
-              },
-            ),
+            sideMenuNavs(
+                context, supportNavIcon, 'support', CustomerSupportScreen()),
+            sideMenuNavs(context, aboutNavIcon, 'about', AboutUsScreen()),
+            sideMenuNavs(context, recentOrdersNavIcon, 'recent order',
+                RecentOrdersScreen()),
 
             SizedBox(
               height: 250.0,
@@ -110,7 +86,6 @@ class _SideMenuState extends State<SideMenu> {
                 // },
                 onPressed: () => showDialog<String>(
                       context: context,
-
                       builder: (BuildContext context) => OurAlertDialog(context,
                           "Log out", "Are you sure you want to logout?"),
                     ),
@@ -130,8 +105,19 @@ class _SideMenuState extends State<SideMenu> {
         ),
       ),
     );
+  }
 
+  ListTile sideMenuNavs(BuildContext context, ourIcon, ourTitle, screen) {
+    return ListTile(
+      textColor: Colors.black,
+      leading: ourSecondaryIcon(ourIcon),
+      title: Text(ourTitle),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => screen),
+        );
+      },
+    );
   }
 }
-
-

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:owalaapp/constants/strings.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/components/appbar.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/screens/about-us.dart';
 
 
@@ -16,7 +17,7 @@ class TermsConditionsScreen extends StatelessWidget {
         child: SingleChildScrollView (
           child: Column(
             children: [
-              Image.asset('images/termsBannerTop.png'),
+              Image.asset(termsCondtionsTopBannerScr),
               SizedBox(
                 height: spacer2,
               ),

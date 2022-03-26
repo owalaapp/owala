@@ -17,11 +17,8 @@ double topBottomLayoutPadding = 20.0;
 // FONT FAMILY
 String primaryFontFamily = 'Poppins';
 
-
-
 // SERVICE
-int deliveryTime = 30;      
-
+int deliveryTime = 30;
 
 double h1FontSize = 96.0;
 double h2FontSize = 60.0;
@@ -34,7 +31,6 @@ double body2FontSize = 14.0;
 
 // Color iconColor = ;
 
-
 double centreIllustrationWidth = 30.0;
 double centreIllheight = 190.0;
 
@@ -45,14 +41,11 @@ double spacer3 = 40.0;
 // TOASTS
 String backToast = 'Press back again to close';
 
-
-
 const ourContactNumber = '917042625705';
 const ourEmailId = 'contact@owalain.com';
 // const whatsappLink = 'https://chatwith.io/s/owala';
-const whatsappLink = 'https://wa.me/$ourContactNumber?text=Hi,%20my%20name%20is%20(your%20name).%20I%20need%20help%20regarding...';
-
-
+const whatsappLink =
+    'https://wa.me/$ourContactNumber?text=Hi,%20my%20name%20is%20(your%20name).%20I%20need%20help%20regarding...';
 
 double primaryBtnWidth = 350.0;
 double primaryBtnHeight = 60.0;

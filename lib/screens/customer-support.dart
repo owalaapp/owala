@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/components/section-titles.dart';
+import 'package:owalaapp/constants/ouricons.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/screens/sidemenu.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:owalaapp/constants/constants.dart';
-import 'package:owalaapp/components/cards.dart';
 
 class CustomerSupportScreen extends StatelessWidget {
   const CustomerSupportScreen({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class CustomerSupportScreen extends StatelessWidget {
             ),
             Center(
               child: SvgPicture.asset(
-                'images/cs-screen-ill.svg',
+                customerSupportIllScreen,
                 height: centreIllheight,
               ),
             ),
@@ -38,17 +39,16 @@ class CustomerSupportScreen extends StatelessWidget {
             ),
             Card(
                 child: supportCards(
-                    Icons.call, 'Phone', 'Call our customer support', callUs)),
+                    callIcon, 'Phone', 'Call our customer support', callUs)),
+            SizedBox(
+              height: spacer2,
+            ),
+            Card(child: supportCards(emailIcon, 'Email', ourEmailId, emailUs)),
             SizedBox(
               height: spacer2,
             ),
             Card(
-                child: supportCards(Icons.email, 'Email', ourEmailId, emailUs)),
-            SizedBox(
-              height: spacer2,
-            ),
-            Card(
-                child: supportCards(Icons.chat, 'Chat',
+                child: supportCards(chatIcon, 'Chat',
                     'Chat with our support team', chatWithUs)),
           ],
         ),
@@ -67,4 +67,13 @@ class CustomerSupportScreen extends StatelessWidget {
   void chatWithUs() async {
     launch(whatsappLink);
   }
+}
+
+ListTile supportCards(ourIcon, ourMainText, ourSubtText, method) {
+  return ListTile(
+    leading: ourSecondaryIcon(ourIcon),
+    title: Text(ourMainText),
+    subtitle: Text(ourSubtText),
+    onTap: method,
+  );
 }

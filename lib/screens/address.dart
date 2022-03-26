@@ -3,10 +3,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:intl/intl.dart';
 
-
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/user.dart';
+import 'package:owalaapp/screens/location-permission.dart';
 
 // Screens
 import 'package:owalaapp/screens/order-confirmed.dart';
@@ -41,29 +42,39 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(
+                    height: spacer3,
+                  ),
                   Center(
                     child: Container(
                       height: 150.0,
-                      child: SvgPicture.asset(
-                        'images/locationpin.svg',
-                      ),
+                      child: SvgPicture.asset(addressDetailsIllScr),
                     ),
                   ),
                   SizedBox(
                     height: spacer3,
                   ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        color: primaryColor,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => LocartionPermSc()));
+                    },
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: primaryColor,
                       ),
-                      Text(
-                        addAddressTopLocation,
-                        style: TextStyle(
-                            fontSize: h5FontSize, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                        Text(
+                          addAddressTopLocation,
+                          style: TextStyle(
+                              fontSize: h5FontSize,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 25.0),
@@ -76,12 +87,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       key: _addressFormKey,
                       child: Column(
                         children: [
-                          ourAddressDetailInputs('(HOUSE/ FLAT/ BLOCK NO.)',
-                              Icons.home, houseNumberContoller),
-                          ourAddressDetailInputs('(APARTMENT/ ROAD/ AREA',
-                              Icons.home, apartmentNumberContoller),
-                          ourAddressDetailInputs('Landmark', Icons.location_on,
-                              landmarkController),
+                          ourAddressDetailInputs(
+                              '(HOUSE/ FLAT/ BLOCK NO.)'.toLowerCase(),
+                              Icons.home,
+                              houseNumberContoller),
+                          ourAddressDetailInputs(
+                              '(APARTMENT/ ROAD/ AREA'.toLowerCase(),
+                              Icons.home,
+                              apartmentNumberContoller),
+                          ourAddressDetailInputs('Landmark'.toLowerCase(),
+                              Icons.location_on, landmarkController),
                         ],
                       )),
                   SizedBox(

@@ -2,14 +2,18 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:owalaapp/components/appbar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:owalaapp/components/elevatedPrimaryButton.dart';
+import 'package:owalaapp/constants/ouricons.dart';
+import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/screens/home.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/customtheme.dart';
+import 'package:owalaapp/services/database.dart';
 import 'package:owalaapp/screens/location-permission.dart';
 import 'package:owalaapp/screens/terms-conditions.dart';
 
@@ -35,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String verificationId = '';
   bool showLoading = false;
 
+
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     setState(() {
@@ -42,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
+      
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
 
@@ -50,8 +56,8 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       if (authCredential?.user != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => LocartionPermSc()));
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -71,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset("images/owalaGreenLogo.png"),
+            Image.asset(owalaPrimaryColoredFullLogo),
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: RichText(
@@ -108,10 +114,10 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Center(
               child: Text(
-                "India's #1st Moving Shops",
+                "India's #1st\nMoving Shops",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontWeight: FontWeight.w900, fontSize: h5FontSize),
+                    fontWeight: FontWeight.bold, fontSize: h5FontSize),
               ),
             ),
             SizedBox(
@@ -137,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           .build(),
 
                       decoration: InputDecoration(
-                          prefixIcon: Image.asset('images/indianFlag.png'),
+                          prefixIcon: Image.asset(indianFlagIcon),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(8)),
                             // borderSide: BorderSide(color: Colors.grey[200])
@@ -164,6 +170,15 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
+                                // dynamic userAuthResult =
+                                //     await _auth.signInWithPhoneNumber;
+                                // if (userAuthResult == null) {
+                                //   print("ERROR SIGNING IN");
+                                // } else {
+                                //   print('######################Signed IN#################################################');
+                                //   print(userAuthResult);
+                                // }
+                                
                                 setState(() {
                                   userPhoneNumber =
                                       int.parse(phoneController.text);
@@ -174,6 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   phoneNumber: '+91' + phoneController.text,
                                   verificationCompleted:
                                       (phoneAuthCredential) async {
+                                    // await DatebaseService(uid: user.uid).updateUserDate();
                                     setState(() {
                                       showLoading = false;
                                     });
@@ -266,14 +282,14 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               child: Container(
                 alignment: Alignment.topLeft,
-                child: Icon(Icons.arrow_back, color: primaryColor),
+                child: ourPrimaryIcon(goBAck, primaryColor),
               ),
             ),
             SizedBox(
               height: spacer3,
             ),
             SvgPicture.asset(
-              'images/otp-verification-ill.svg',
+              otpIll,
               width: 125.0,
             ),
             Text('We’ve sent a verification code to'),
@@ -288,6 +304,11 @@ class _LoginScreenState extends State<LoginScreen> {
               key: _otpFormKey,
               child: TextFormField(
                   controller: otpController,
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ], // Only numbers can be entered
+
                   validator: ValidationBuilder()
                       .minLength(6, 'Please enter just 6 digits')
                       .maxLength(7, 'Please enter just 6 digits')

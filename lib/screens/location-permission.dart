@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:owalaapp/constants/ouricons.dart';
+import 'package:owalaapp/constants/theimages.dart';
+import 'package:owalaapp/screens/home.dart';
 
 import 'package:owalaapp/screens/login.dart';
 import 'package:owalaapp/screens/nodeliverylocation.dart';
@@ -65,7 +68,7 @@ class _LocartionPermSc extends State<LocartionPermSc> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
 
-    // When we reach here, permissions are granted and we can
+    // When we reach here, permi ssions are granted and we can
     // continue accessing the position of the device.
     return await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -82,21 +85,22 @@ class _LocartionPermSc extends State<LocartionPermSc> {
     userStreet = place.street.toString();
     userSubLocality = place.subLocality.toString();
 
-    if (userPincode != '122001') {
-    Navigator.push(context,
-          MaterialPageRoute(builder: (context) => LocationNotServicable()));
+    if (userPincode == '122001') {
+    
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => HomeScreen(userLocationValue: userDeliveryArea)));
     } else {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LocationNotServicable()));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-  return WillPopScope(
+    return WillPopScope(
       onWillPop: () async {
         return true;
-    },
+      },
       child: Scaffold(
         body: Center(
           child: Padding(
@@ -105,15 +109,14 @@ class _LocartionPermSc extends State<LocartionPermSc> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset('images/locationPerm.svg',
-                    width: centreIllheight),
+                SvgPicture.asset(locationPermissionIll, width: centreIllheight),
                 SizedBox(
                   height: spacer2,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.location_on),
+                    ourPrimaryIcon(locationIcon, defaultIconColor),
                     Text(
                       "Location",
                       textAlign: TextAlign.center,

@@ -15,7 +15,7 @@ String productBName = 'Fruits';
 
 
 // Description
-String productADescription = 'Get hygenic vegetables at doorstep.';
+String productADescription = 'Get fresh potatos, tomatos & onions';
 String productBDescription = 'COMMING SOON!';
 // String productBDescription = 'Get fresh banana, grapes & oranges.';
 
