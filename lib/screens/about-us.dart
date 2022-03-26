@@ -29,9 +29,12 @@ class AboutUsScreen extends StatelessWidget {
               aboutUsIllScreen,
               height: centreIllheight,
             ),
+            SizedBox(
+              height: spacer2,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: leftRightPadding,
+                  horizontal: leftRightLayoutPadding,
                   vertical: topBottomLayoutPadding),
               child: Text(aboutUs),
             ),

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
-// GLOBAL
-String owalaPrimaryColoredFullLogo = 'images/owalaGreenLogo.png';
-String vegetablesCartCta = 'images/vegetable-cart.png';
-String fruitsCartCta = 'images/fruits-cart.png';
+// IMAGES SIZE
+double centreIllustrationWidth = 30.0;
+double centreIllheight = 190.0;
 
-// LOCATION PERMISSION SCREEN
+// GLOBAL
+String owalaPrimaryColoredFullLogo = 'images/owalaPrimaryFullLogo.svg';
+String productaCartCta = 'images/vegetable-cart.png';
+String productbCartCta = 'images/fruits-cart.png';
 String locationPermissionIll = 'images/locationPerm.svg';
 
 // LOGIN SCREEN
@@ -30,12 +32,13 @@ String aboutUsIllScreen = 'images/about-us-ill.svg';
 String termsCondtionsTopBannerScr = 'images/termsBannerTop.png';
 String privacyPolicyTopBannerScr = 'images/privacyPolicyTopBanner.png';
 
-// ADD ADDRESS DETAILS SCREEN
-String addressDetailsIllScr = 'images/locationpin.svg';
-
 // ORDER CONFIRMED SCREEN
 String confimedStickerScr = 'images/confirmedSticker.svg';
 String locationIllIcon = 'images/locationPinIll.svg';
+String paymentModes = 'images/mention.svg';
 
 // RECENT ORDERS SCREEN
 String noOrdersIll = 'images/no-orders-yet.svg';
+
+// NOT A DELIVERY LOCATION
+String noDeliveryIll = 'images/notdelivery.svg';

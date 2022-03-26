@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
-import 'package:owalaapp/screens/recent-orders.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:owalaapp/components/appbar.dart';
@@ -31,7 +28,6 @@ class OrderConfirmedScreen extends StatefulWidget {
 }
 
 class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
-  String orderDetailsForUs = '$userName has ordered $productChoosed';
   @override
   void initState() {
     //  launch(whatsappLinkOrderDetailsForUs);
@@ -56,12 +52,17 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
     }
 
     return Scaffold(
-      // appBar: ourAppBar("Order Details", HomeScreen()),
+      appBar: ourAppBar(
+          "Order Details",
+          HomeScreen(
+            userLocationValue: userDeliveryArea,
+          )),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+              horizontal: leftRightLayoutPadding,
+              vertical: topBottomLayoutPadding),
           child: Column(children: [
             Center(child: SvgPicture.asset(confimedStickerScr)),
             SizedBox(
@@ -72,11 +73,11 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
               style:
                   TextStyle(fontSize: h4FontSize, fontWeight: FontWeight.bold),
             ),
-            Text(
-              'Order Status : $showLastOrderStatus',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-            ),
+            // Text(
+            //   'Order Status : $showLastOrderStatus',
+            //   style: TextStyle(
+            //       fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+            // ),
 
             Container(
               child: ourDividerA(),
@@ -92,23 +93,26 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
               subtitle: Text(
                   'Our owala captain wil contact you shortly via call or whatsapp.'),
               trailing: Text(
-                'Rs.$vegetableCartServiceCharge',
+                'Rs.$productACartServiceCharge',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
-            Container(
-              child: ourDividerA(),
-            ),
-            // ourConfirmedListTiles('userIcon', '$userName, $userPhoneNumber', ''),
-            ourConfirmedListTiles(
-                locationIllIcon, 'Delivery Address', userFinalComplteAddress),
+            ourDividerA(),
 
-            Container(
-              child: ourDividerA(),
-            ),
+            ourConfirmedListTiles(paymentModes, 'Payment Mode',
+                'You can pay via mode of your choice (Paytm/ PhonePe/ GooglePay/ Cash).'),
+
+            ourDividerA(),
+
+            ourConfirmedListTiles(
+                locationIllIcon, 'Delivery Address', userDeliveryAddressImp),
+
+            ourDividerA(),
 
             ourSectionTitles('👋 Need help with order?'),
-
+            SizedBox(
+              height: spacer1,
+            ),
             Card(
               child: supportCards(wereHereIcon, 'Chat with us',
                   "we're here for you ", chatWithUs),

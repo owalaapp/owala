@@ -1,14 +1,8 @@
-import 'package:intl/intl.dart';
-
-
-String userName = '';
 int userPhoneNumber = 1234567890;
 String productChoosed = 'vegetable';
-final DateTime now = DateTime.now();
-final DateFormat formatter = DateFormat('yyyy-MM-dd');
-String formattedDateJoined = formatter.format(now);
+String userJoinedDateStart = '';
 
-// Location
+// LOCATION
 double userLatitude = 0.0;
 double userLongitude = 0.0;
 String userPincode = '';
@@ -16,23 +10,23 @@ String userCountry = '';
 String userCity = '';
 String userSubLocality = '';
 String userStreet = '';
-bool notEvenSingleOrderYet = true;
 
+// ADDRESS
+// add address details screen
+String addAddressTopLocation1 = '$userStreet, $userSubLocality';
+String addAddressTopLocation2 =
+    '$userStreet, $userSubLocality, $userCity, $userPincode, $userCountry';
+// address screen inputs
 String userAddressFirstLineInput = '';
 String userAddressSecondLineInput = '';
 String userLandmarkInput = '';
-
-// Order
-int userRecentOrderId = 654321;
-String userRecentOrderDate = '';
-
-String userCompleteAddress =
-    '$userStreet, $userSubLocality, $userCity, $userPincode, $userCountry';
+// data passing between screens
 String userDeliveryArea =
     '$userStreet, $userSubLocality, $userCity, $userPincode...';
-String addAddressTopLocation = '$userStreet, $userSubLocality';
+// main address for us to delivery
+String userDeliveryAddressImp = '';
 
-String userFinalComplteAddress =
-    '$userAddressFirstLineInput, $userAddressSecondLineInput, Near $userLandmarkInput,  $userSubLocality, $userCity, $userPincode, $userCountry';
-
-
+// ORDERS
+bool notEvenSingleOrderYet = true;
+String userRecentOrderDate = '';
+int userRecentOrderId = 654321;

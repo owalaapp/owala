@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:owalaapp/main.dart';
+
+// SCREENS
 import 'package:owalaapp/screens/login.dart';
 
 

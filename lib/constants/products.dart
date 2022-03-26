@@ -1,30 +1,18 @@
 import 'package:flutter/material.dart';
 
+class Products {}
 
-class Products {
-}
+class VegetablesCardProduct extends Products {}
 
-class VegetablesCardProduct extends Products {
-
-}
-
-
-String productName = '';
 String productAName = 'Vegetables';
-String productBName = 'Fruits';
-
+String productBName = 'Juice';
 
 // Description
-String productADescription = 'Get fresh potatos, tomatos & onions';
+String productADescription = 'Get fresh potatos, tomatos & onions...';
 String productBDescription = 'COMMING SOON!';
 // String productBDescription = 'Get fresh banana, grapes & oranges.';
 
-
 // CHARGES
-const vegetableCartServiceCharge = 19;
-const fruitsCartServiceCharge = 22;
-
-
-String productAimage = 'images/vegetable-cart.png';
-String productBimage = 'images/fruitCart.png';
+const productACartServiceCharge = 19;
+const productBCartServiceCharge = 22;
 

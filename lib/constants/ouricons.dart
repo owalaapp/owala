@@ -4,7 +4,6 @@ import 'package:owalaapp/constants/constants.dart';
 // ICON Color
 const defaultIconColor = Colors.grey;
 
-// const iconColored = ;
 
 Icon ourPrimaryIcon(iconName, iconColor) {
   return Icon(

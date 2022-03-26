@@ -5,8 +5,6 @@ import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:owalaapp/screens/home.dart';
-import 'package:owalaapp/screens/recent-orders.dart';
-import 'package:image_picker/image_picker.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
@@ -19,7 +17,6 @@ class SideMenu extends StatefulWidget {
   State<SideMenu> createState() => _SideMenuState();
 }
 
-final ImagePicker _picker = ImagePicker();
 
 class _SideMenuState extends State<SideMenu> {
   @override
@@ -30,7 +27,7 @@ class _SideMenuState extends State<SideMenu> {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: leftRightPadding, vertical: 20.0),
+              horizontal: leftRightLayoutPadding, vertical: 20.0),
           child: Column(children: [
             Row(
               children: [
@@ -48,12 +45,18 @@ class _SideMenuState extends State<SideMenu> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Text(
+                    //   'Hello, $userName',
+                    //   style: TextStyle(
+                    //       fontWeight: FontWeight.bold, fontSize: h5FontSize),
+                    // ),
                     Text(
-                      'Hello, $userName',
+                      userPhoneNumber.toString(),
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: h5FontSize),
-                    ),
-                    Text(userPhoneNumber.toString())
+                        fontWeight: FontWeight.bold,
+                        fontSize: h5FontSize,
+                      ),
+                    )
                   ],
                 ),
               ],
@@ -72,8 +75,8 @@ class _SideMenuState extends State<SideMenu> {
             sideMenuNavs(
                 context, supportNavIcon, 'support', CustomerSupportScreen()),
             sideMenuNavs(context, aboutNavIcon, 'about', AboutUsScreen()),
-            sideMenuNavs(context, recentOrdersNavIcon, 'recent order',
-                RecentOrdersScreen()),
+            // sideMenuNavs(context, recentOrdersNavIcon, 'recent order',
+            //     RecentOrdersScreen()),
 
             SizedBox(
               height: 250.0,

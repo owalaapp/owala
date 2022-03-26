@@ -1,21 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:owalaapp/components/appbar.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:owalaapp/constants/constants.dart';
+import 'package:intl/intl.dart';
+import 'package:owalaapp/constants/ourbuttonstyles.dart';
+// import 'package:sms_autofill/sms_autofill.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:owalaapp/components/elevatedPrimaryButton.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/user.dart';
-import 'package:owalaapp/screens/home.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:owalaapp/constants/customtheme.dart';
-import 'package:owalaapp/services/database.dart';
+
+// SCREENS
 import 'package:owalaapp/screens/location-permission.dart';
-import 'package:owalaapp/screens/terms-conditions.dart';
 
 enum MobileVerificationState { SHOW_MOBILE_FORM_STATE, SHOW_OTP_FORM_STATE }
 
@@ -23,6 +23,8 @@ MobileVerificationState currentState =
     MobileVerificationState.SHOW_MOBILE_FORM_STATE;
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -39,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
   String verificationId = '';
   bool showLoading = false;
 
-
   void signInWithPhoneAuthCredential(
       PhoneAuthCredential phoneAuthCredential) async {
     setState(() {
@@ -47,7 +48,6 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      
       final authCredential =
           await _auth.signInWithCredential(phoneAuthCredential);
 
@@ -57,15 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (authCredential?.user != null) {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => LocartionPermSc()));
+            MaterialPageRoute(builder: (context) => const LocartionPermSc()));
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
         showLoading = false;
       });
-
-      // _scaffoldKey.currentState
-      // .showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
 
@@ -73,58 +70,59 @@ class _LoginScreenState extends State<LoginScreen> {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+            horizontal: leftRightLayoutPadding,
+            vertical: topBottomLayoutPadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(owalaPrimaryColoredFullLogo),
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: RichText(
-                text: TextSpan(children: <TextSpan>[
-                  TextSpan(
-                      text: 'Ab',
-                      style: ourConditonsText(
-                          FontWeight.normal, FontStyle.italic, h5FontSize)),
-                  TextSpan(
-                      text: ' Shop ',
-                      style: ourConditonsText(
-                          FontWeight.bold, FontStyle.italic, h5FontSize)),
-                  TextSpan(
-                      text: '& shopping,\n',
-                      style: ourConditonsText(
-                          FontWeight.normal, FontStyle.italic, h5FontSize)),
-                  TextSpan(
-                      text: 'dono',
-                      style: ourConditonsText(
-                          FontWeight.normal, FontStyle.italic, h5FontSize)),
-                  TextSpan(
-                      text: ' ghar par!',
-                      style: ourConditonsText(
-                          FontWeight.bold, FontStyle.italic, h5FontSize)),
-                  TextSpan(
-                      text: '',
-                      style: ourConditonsText(
-                          FontWeight.bold, FontStyle.normal, h5FontSize))
-                ]),
-              ),
-            ),
+            SvgPicture.asset('images/owalaPrimaryFullLogo.svg'),
             SizedBox(
+              height: spacer2,
+            ),
+            RichText(
+              text: TextSpan(children: <TextSpan>[
+                TextSpan(
+                    text: 'Ab',
+                    style: ourConditonsText(
+                        FontWeight.normal, FontStyle.italic, h5FontSize)),
+                TextSpan(
+                    text: ' Shop ',
+                    style: ourConditonsText(
+                        FontWeight.bold, FontStyle.italic, h5FontSize)),
+                TextSpan(
+                    text: '& shopping,\n',
+                    style: ourConditonsText(
+                        FontWeight.normal, FontStyle.italic, h5FontSize)),
+                TextSpan(
+                    text: 'dono',
+                    style: ourConditonsText(
+                        FontWeight.normal, FontStyle.italic, h5FontSize)),
+                TextSpan(
+                    text: ' ghar par!',
+                    style: ourConditonsText(
+                        FontWeight.bold, FontStyle.italic, h5FontSize)),
+                TextSpan(
+                    text: '',
+                    style: ourConditonsText(
+                        FontWeight.bold, FontStyle.normal, h5FontSize))
+              ]),
+            ),
+            const SizedBox(
               height: 100.0,
             ),
             Center(
               child: Text(
-                "India's #1st\nMoving Shops",
+                "Moving Shops",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: h5FontSize),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
-            Center(child: Text("Login on Sign up with")),
-            SizedBox(
+            const Center(child: Text("Login or Sign up with")),
+            const SizedBox(
               height: 20.0,
             ),
             Form(
@@ -141,15 +139,17 @@ class _LoginScreenState extends State<LoginScreen> {
                           .minLength(10, "Please enter correct phone number")
                           .maxLength(10, 'Please enter correct phone number')
                           .build(),
-
+                      autofillHints: [AutofillHints.telephoneNumber],
                       decoration: InputDecoration(
                           prefixIcon: Image.asset(indianFlagIcon),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                             // borderSide: BorderSide(color: Colors.grey[200])
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8)),
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(8)),
                             // borderSide: BorderSide(color: Colors.grey[300])
                           ),
                           filled: true,
@@ -170,15 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                                // dynamic userAuthResult =
-                                //     await _auth.signInWithPhoneNumber;
-                                // if (userAuthResult == null) {
-                                //   print("ERROR SIGNING IN");
-                                // } else {
-                                //   print('######################Signed IN#################################################');
-                                //   print(userAuthResult);
-                                // }
-                                
                                 setState(() {
                                   userPhoneNumber =
                                       int.parse(phoneController.text);
@@ -189,19 +180,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   phoneNumber: '+91' + phoneController.text,
                                   verificationCompleted:
                                       (phoneAuthCredential) async {
-                                    // await DatebaseService(uid: user.uid).updateUserDate();
                                     setState(() {
                                       showLoading = false;
                                     });
-                                    //signInWithPhoneAuthCredential(phoneAuthCredential);
                                   },
                                   verificationFailed:
                                       (verificationFailed) async {
                                     setState(() {
                                       showLoading = false;
                                     });
-                                    // _scaffoldKey.currentState.showSnackBar(SnackBar(
-                                    // content: Text(verificationFailed.message)));
                                   },
                                   codeSent:
                                       (verificationId, resendingToken) async {
@@ -215,16 +202,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   codeAutoRetrievalTimeout:
                                       (verificationId) async {},
                                 );
-                                //   final snackBar =
-                                //       SnackBar(content: Text("Submi"));
-                                //   _scaffoldKey.currentState!.showSnackBar(snackBar);
-                                // }
-
                               }
                             },
                           ),
-                          // ourElevatedPrimaryBtn(
-                          //      context, getOtpFormWidget(context), "Continue"),
                         ),
                       ),
                     ),
@@ -241,6 +221,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ourConditonsText(FontWeight.normal,
                             FontStyle.normal, body1FontSize)),
                     TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            _launchConiditonsPage(termsAndConditionsPage);
+                          },
                         text: ' Terms & Conditions ',
                         style: ourConditonsText(
                             FontWeight.bold, FontStyle.normal, body1FontSize)),
@@ -249,6 +233,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         style: ourConditonsText(FontWeight.normal,
                             FontStyle.normal, body1FontSize)),
                     TextSpan(
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            _launchConiditonsPage(privacyPolicyPage);
+                          },
                         text: ' Privacy Policy',
                         style: ourConditonsText(
                             FontWeight.bold, FontStyle.normal, body1FontSize)),
@@ -268,78 +256,85 @@ class _LoginScreenState extends State<LoginScreen> {
 
   SafeArea getOtpFormWidget(context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-            horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: () {
-                setState(() {
-                  currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-                  MaterialPageRoute(builder: (context) => (LoginScreen()));
-                });
-              },
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: ourPrimaryIcon(goBAck, primaryColor),
-              ),
+      child: Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+                MaterialPageRoute(builder: (context) => (const LoginScreen()));
+              });
+            },
+            child: Container(
+              alignment: Alignment.topLeft,
+              child: ourPrimaryIcon(goBAck, primaryColor),
             ),
-            SizedBox(
-              height: spacer3,
-            ),
-            SvgPicture.asset(
-              otpIll,
-              width: 125.0,
-            ),
-            Text('We’ve sent a verification code to'),
-            Text(
-              '+91 $userPhoneNumber',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: spacer1,
-            ),
-            Form(
+          ),
+          SizedBox(
+            height: spacer3,
+          ),
+          SvgPicture.asset(
+            otpIll,
+            width: 125.0,
+          ),
+          const Text('We’ve sent a verification code to'),
+          Text(
+            '+91 $userPhoneNumber',
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: spacer1,
+          ),
+          Container(
+            width: 120.0,
+            child: Form(
               key: _otpFormKey,
               child: TextFormField(
-                  controller: otpController,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ], // Only numbers can be entered
-
-                  validator: ValidationBuilder()
-                      .minLength(6, 'Please enter just 6 digits')
-                      .maxLength(7, 'Please enter just 6 digits')
-                      .build(),
-                  decoration: InputDecoration(hintText: 'Enter OTP')),
-            ),
-            SizedBox(
-              height: spacer3,
-            ),
-            SizedBox(
-              width: primaryBtnWidth,
-              height: primaryBtnHeight,
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (_otpFormKey.currentState!.validate()) {
-                    PhoneAuthCredential phoneAuthCredential =
-                        PhoneAuthProvider.credential(
-                            verificationId: verificationId,
-                            smsCode: otpController.text);
-
-                    signInWithPhoneAuthCredential(phoneAuthCredential);
-                  }
-                },
-                child: Text(
-                  'Verify',
-                  style: ourPrimaryButtonStyle(),
+                textAlign: TextAlign.center,
+                controller: otpController,
+                style: TextStyle(
+                  fontSize: h5FontSize,
                 ),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ], // Only numbers can be entered
+                validator: ValidationBuilder()
+                    .minLength(6, 'Please enter just 6 digits')
+                    .maxLength(7, 'Please enter just 6 digits')
+                    .build(),
               ),
             ),
-          ],
-        ),
+          ),
+          SizedBox(
+            height: spacer3,
+          ),
+          SizedBox(
+            width: primaryBtnWidth,
+            height: primaryBtnHeight,
+            child: ElevatedButton(
+              onPressed: () async {
+                if (_otpFormKey.currentState!.validate()) {
+                  PhoneAuthCredential phoneAuthCredential =
+                      PhoneAuthProvider.credential(
+                          verificationId: verificationId,
+                          smsCode: otpController.text);
+
+                  signInWithPhoneAuthCredential(phoneAuthCredential);
+
+                  setState(() {
+                    userJoinedDateStart = DateFormat('dd-MM-yyyy KK:mm:ss a')
+                        .format(DateTime.now());
+                  });
+                }
+              },
+              child: Text(
+                'Verify',
+                style: ourPrimaryButtonStyle(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -357,13 +352,27 @@ class _LoginScreenState extends State<LoginScreen> {
           key: _scaffoldKey,
           body: Container(
             child: showLoading
-                ? Center(
+                ? const Center(
                     child: CircularProgressIndicator(),
                   )
                 : currentState == MobileVerificationState.SHOW_MOBILE_FORM_STATE
                     ? getMobileFormWidget(context)
-                    : getOtpFormWidget(context),
-            padding: const EdgeInsets.all(16),
+                    : WillPopScope(
+                        onWillPop: () async {
+                          setState(() {
+                            currentState =
+                                MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          });
+                          return false;
+                        },
+                        child: getOtpFormWidget(context)),
+            padding: EdgeInsets.symmetric(
+                horizontal: leftRightLayoutPadding,
+                vertical: topBottomLayoutPadding),
           )),
     );
   }
@@ -375,4 +384,8 @@ class _LoginScreenState extends State<LoginScreen> {
         fontSize: ourFontSize,
         fontStyle: ourFontStyle);
   }
+}
+
+void _launchConiditonsPage(_url) async {
+  if (!await launch(_url)) throw 'Could not launch $_url';
 }

@@ -18,7 +18,7 @@ class CustomerSupportScreen extends StatelessWidget {
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
-            horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+            horizontal: leftRightLayoutPadding, vertical: topBottomLayoutPadding),
         child: Column(
           children: [
             SizedBox(

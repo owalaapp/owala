@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
-import 'package:owalaapp/screens/home.dart';
-
-import 'package:owalaapp/screens/login.dart';
-import 'package:owalaapp/screens/nodeliverylocation.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/user.dart';
+
+// SCREENS
+import 'package:owalaapp/screens/home.dart';
+import 'package:owalaapp/screens/nodeliverylocation.dart';
 
 class LocartionPermSc extends StatefulWidget {
   const LocartionPermSc({Key? key}) : super(key: key);
@@ -34,7 +35,6 @@ class _LocartionPermSc extends State<LocartionPermSc> {
   }
 
   bool showLoading = false;
-
   Future<Position> _getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -53,6 +53,8 @@ class _LocartionPermSc extends State<LocartionPermSc> {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => LocationNotServicable()));
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
         // Android's shouldShowRequestPermissionRationale
@@ -86,9 +88,9 @@ class _LocartionPermSc extends State<LocartionPermSc> {
     userSubLocality = place.subLocality.toString();
 
     if (userPincode == '122001') {
-    
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => HomeScreen(userLocationValue: userDeliveryArea)));
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+              HomeScreen(userLocationValue: userDeliveryArea)));
     } else {
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => LocationNotServicable()));
@@ -105,13 +107,13 @@ class _LocartionPermSc extends State<LocartionPermSc> {
         body: Center(
           child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+                horizontal: leftRightLayoutPadding,
+                vertical: withoutAppBarTopLayoutPadding),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SvgPicture.asset(locationPermissionIll, width: centreIllheight),
                 SizedBox(
-                  height: spacer2,
+                  height: spacer3,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +131,7 @@ class _LocartionPermSc extends State<LocartionPermSc> {
                   height: spacer1,
                 ),
                 Text(
-                  'Please enable location permission to have an\neasy experience with our delivery.',
+                  'Please enable location permission to\n have an easy experience with our delivery.',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(

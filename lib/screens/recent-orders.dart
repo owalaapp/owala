@@ -24,7 +24,8 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
     return SafeArea(
         child: Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+                horizontal: leftRightLayoutPadding,
+                vertical: topBottomLayoutPadding),
             child: imageTitleScreenWidget(
                 noOrdersIll, "No orders yet", 'Place your first order')));
   }
@@ -33,7 +34,7 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
     return SafeArea(
         child: Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: leftRightPadding, vertical: topBottomLayoutPadding),
+          horizontal: leftRightLayoutPadding, vertical: topBottomLayoutPadding),
       child: Column(
         children: [
           Container(
@@ -42,7 +43,7 @@ class _RecentOrdersScreenState extends State<RecentOrdersScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
                 border: Border.all(width: 1.0, color: dividerColor)),
             child: ListTile(
-              leading: Image.asset(productAimage),
+              leading: Image.asset(productbCartCta),
               title: Text(userRecentOrderId.toString()),
               // subtitle: Text(),
               trailing: ourSecondaryIcon(go),
