@@ -6,7 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/constants/constants.dart';
-import 'package:owalaapp/constants/user.dart';
+import 'package:owalaapp/models/user.dart';
 
 // SCREENS
 import 'package:owalaapp/screens/home.dart';
@@ -132,6 +132,13 @@ class _LocartionPermSc extends State<LocartionPermSc> {
                 ),
                 Text(
                   'Please enable location permission to\n have an easy experience with our delivery.',
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: spacer3,
+                ),
+                Text(
+                  'We owala collects location data to enable live order tracking feature for you in future even when app is closed or not in use.',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(

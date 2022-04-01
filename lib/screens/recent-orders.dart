@@ -5,7 +5,7 @@ import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/products.dart';
 import 'package:owalaapp/constants/theimages.dart';
-import 'package:owalaapp/constants/user.dart';
+import 'package:owalaapp/models/user.dart';
 import 'package:owalaapp/screens/order-confirmed.dart';
 import 'package:owalaapp/screens/sidemenu.dart';
 

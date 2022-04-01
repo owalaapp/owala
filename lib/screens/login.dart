@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:owalaapp/constants/ourbuttonstyles.dart';
+import 'package:owalaapp/models/user.dart';
 // import 'package:sms_autofill/sms_autofill.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
-import 'package:owalaapp/constants/user.dart';
 
 // SCREENS
 import 'package:owalaapp/screens/location-permission.dart';
@@ -112,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Center(
               child: Text(
-                "Moving Shops",
+                "India's First\nMoving Shops",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: h5FontSize),

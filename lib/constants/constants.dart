@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:owalaapp/constants/user.dart';
 
 // COLORS
-Color primaryColor = Color(0xff25CF60);
+Color primaryColor = Color(0xffFC7A69);
+Color primaryAccentColor = Color(0xffFCACA4);
 Color secondaryColor = Color(0xffC8E6C9);
 Color lightPrimaryColor = Color(0xffC8E6C9);
 Color dividerColor = Color(0xffBDBDBD);
@@ -35,7 +35,7 @@ double spacer3 = 40.0;
 
 // ABOUT US
 const ourContactNumber = '917042625705';
-const ourEmailId = 'owala3969@gmail.com';
+const ourEmailId = 'support@owalain.com';
 const whatsappLink =
     'https://wa.me/$ourContactNumber?text=Hi,%20my%20name%20is%20(your%20name).%20I%20need%20help%20regarding...';
 String termsAndConditionsPage = "http://owala.online/terms-conditions";

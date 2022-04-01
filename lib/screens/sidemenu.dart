@@ -3,12 +3,13 @@ import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
+import 'package:owalaapp/models/user.dart';
 import 'package:owalaapp/screens/about-us.dart';
 import 'package:owalaapp/screens/home.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'customer-support.dart';
 import 'package:owalaapp/components/alertdialog.dart';
 import 'package:owalaapp/components/dividers.dart';
-import 'package:owalaapp/constants/user.dart';
 
 class SideMenu extends StatefulWidget {
   // const SideMenu({Key? key}) : super(key: key);

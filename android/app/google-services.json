@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:724263304244:android:4562e4f48d4b65ea2fde61",
         "android_client_info": {
-          "package_name": "com.owalain"
+          "package_name": "com.owalain.owala"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "724263304244-te4dm0b52t3jljqhacbmgtj7svt081cb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.owalain",
+            "package_name": "com.owalain.owala",
             "certificate_hash": "1da19900adedcedcddc466af66f1d041a0a89c9d"
           }
         },

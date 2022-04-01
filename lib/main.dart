@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_color_generator/material_color_generator.dart';
+import 'package:owalaapp/models/user.dart';
+import 'package:owalaapp/screens/home.dart';
 
 import 'constants/constants.dart';
 
@@ -64,6 +66,6 @@ class _InitializerWidgetState extends State<InitializerWidget> {
           )
         : _user == null
             ? LoginScreen()
-            : const LocartionPermSc();
+            : HomeScreen(userLocationValue: userDeliveryArea);
   }
 }

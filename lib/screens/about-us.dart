@@ -11,6 +11,7 @@ import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/screens/sidemenu.dart';
 import 'package:owalaapp/screens/terms-conditions.dart';
 import 'package:owalaapp/screens/privacy-policy.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({Key? key}) : super(key: key);
@@ -46,9 +47,9 @@ class AboutUsScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   aboutBottomCards(
-                      context, 'Terms & Conditions', TermsConditionsScreen()),
+                      context, 'Terms & Conditions', termsAndConditionsPage),
                   aboutBottomCards(
-                      context, 'Privacy Policy', PrivacyPolicyScreen()),
+                      context, 'Privacy Policy', privacyPolicyPage),
                 ],
               ),
             ),
@@ -58,11 +59,10 @@ class AboutUsScreen extends StatelessWidget {
     );
   }
 
-  GestureDetector aboutBottomCards(BuildContext context, ourTitle, ourScreen) {
+  GestureDetector aboutBottomCards(BuildContext context, ourTitle, page) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => ourScreen));
+        launch(page);
       },
       child: Card(
           child: ListTile(

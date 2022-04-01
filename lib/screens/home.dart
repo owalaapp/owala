@@ -120,12 +120,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(
                 height: spacer3,
               ),
-              ourCTA(productaCartCta, '$productAName Cart', productADescription,
+              ourCTA(productaCartCta, '$productAName cart', productADescription,
                   productACartServiceCharge, true),
               SizedBox(
                 height: spacer2,
               ),
-              ourCTA(productbCartCta, '$productBName Cart', productBDescription,
+              ourCTA(productbCartCta, '$productBName cart', productBDescription,
                   productBCartServiceCharge, false),
               SizedBox(
                 height: spacer1,
@@ -167,7 +167,11 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             }
           },
-          leading: Image.asset(ourImage),
+          leading: Image.asset(
+            ourImage,
+            width: 50.0,
+            height: 50.0,
+          ),
           title: Text(ourTitle),
           subtitle: Text(ourSubTitle),
           trailing: Text('Rs.$charges'),

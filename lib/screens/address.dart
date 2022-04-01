@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:intl/intl.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/constants/constants.dart';
@@ -12,12 +14,29 @@ import 'package:owalaapp/constants/theimages.dart';
 import 'package:mailer/mailer.dart';
 import 'package:owalaapp/models/user.dart';
 import 'package:owalaapp/screens/home.dart';
+import 'package:http/http.dart' as http;
 import 'login.dart';
-import 'package:owalaapp/constants/user.dart';
 import 'package:owalaapp/screens/location-permission.dart';
 
 // Screens
 import 'package:owalaapp/screens/order-confirmed.dart';
+
+// class SendGridUtil {
+//   static sendRegistrationNotification(String email) async {
+//     Map<String, String> headers = new Map();
+//     headers["Authorization"] =
+//         "Bearer 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";
+//     headers["Content-Type"] = "application/json";
+
+//     var url = 'https://api.sendgrid.com/v3/mail/send';
+//     var response = await http.post(url,
+//         headers: headers,
+//         body:
+//             "{\n          \"personalizations\": [\n            {\n              \"to\": [\n                {\n                  \"email\": \"jerrod@liftaixxx.com\"\n                },\n                {\n                  \"email\": \"darran@gmailxxx.com\"\n                }\n              ]\n            }\n          ],\n          \"from\": {\n            \"email\": \"app@liftaixxx.com\"\n          },\n          \"subject\": \"New user registration\",\n          \"content\": [\n            {\n              \"type\": \"text\/plain\",\n              \"value\": \"New user register: $email\"\n            }\n          ]\n        }");
+//     print('Response status: ${response.statusCode}');
+//     print('Response body: ${response.body}');
+//   }
+// }
 
 class AddAddressScreen extends StatefulWidget {
   // const AddAddressScreen({ Key? key }) : super(key: key);
@@ -127,14 +146,20 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                             "Proceed",
                             style: TextStyle(color: Colors.white),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            userAddressFirstLineInput =
+                                houseNumberContoller.text.toString();
+                            userAddressSecondLineInput =
+                                apartmentNumberContoller.text.toString();
+                            userLandmarkInput =
+                                landmarkController.text.toString();
+
                             if (_addressFormKey.currentState!.validate()) {
                               creatUser(DateFormat('dd-MM-yyyy KK:mm:ss a')
                                   .format(DateTime.now()));
+                              await sendEmail();
                               setState(() {
                                 notEvenSingleOrderYet = false;
-                                userDeliveryAddressImp =
-                                    '$userAddressFirstLineInput, $userAddressSecondLineInput, Near $userLandmarkInput,  $userSubLocality, $userCity, $userPincode, $userCountry';
 
                                 Navigator.push(
                                     context,
@@ -142,13 +167,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                         builder: (context) =>
                                             OrderConfirmedScreen()));
                               });
-
-                              userAddressFirstLineInput =
-                                  houseNumberContoller.text.toString();
-                              userAddressSecondLineInput =
-                                  apartmentNumberContoller.text.toString();
-                              userLandmarkInput =
-                                  landmarkController.text.toString();
                             }
                           }),
                       // child: ourElevatedPrimaryBtn(
@@ -181,16 +199,10 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     // final docOrder = FirebaseFirestore.instance.collection('users').
   }
   Future creatUser(String orderDateTime) async {
-    final docUser = FirebaseFirestore.instance.collection('users').doc();
+    userDeliveryAddressImp =
+        '$userAddressFirstLineInput, $userAddressSecondLineInput, Near $userLandmarkInput,  $userSubLocality, $userCity, $userPincode, $userCountry';
 
-    // final json = {
-    //   'name': name,
-    //   'phone-number': userPhoneNumber,
-    //   'pin-code': userPincode,
-    //   'user-city': userCity,
-    //   'country': userCountry,
-    //   'date-joined': formattedDateJoined
-    // };
+    final docUser = FirebaseFirestore.instance.collection('users').doc();
 
     final user = User(
         id: docUser.id,
@@ -198,7 +210,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
         recentOrderDateTime: orderDateTime,
         // accountCreatedSuccessfully: askForName,
         lastOrderSuccessful: false,
-        deliveryAddress: userDeliveryAddressImp,
+        userDeliveryAddressImp: userDeliveryAddressImp,
         userFullName: userName.text.toString(),
         userPhoneNumber: userPhoneNumber.toString(),
         recentOrderStatus: 'ON THE WAY!',
@@ -209,6 +221,15 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
 
     final json = user.toJson();
 
+    // final json = {
+    //   'name': userName,
+    //   'phone-number': userPhoneNumber,
+    //   'pin-code': userPincode,
+    //   'user-city': userCity,
+    //   'country': userCountry,
+    //   // 'date-joined': formattedDateJoined
+    // };
+
     // Update specific field
     docUser.update({'account-created-succesfully': true});
 
@@ -216,4 +237,68 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     // Create documant and write data to direbase
     await docUser.set(json);
   }
+}
+
+Future sendEmail() async {
+  // final mailInstance = FirebaseFirestore.instance.collection('mail');
+
+  FirebaseFirestore.instance.collection("mail").add({
+    'to': "devgarg3788@gmail.com",
+    'message': {
+      'subject': "New order",
+      'text': "Order from Laxmi",
+    }
+  }).then(
+    (value) {
+      print("Queed email for delivery");
+    },
+  );
+  print("Email done");
+}
+
+class User {
+  String id;
+  final String userFullName;
+  final String userPhoneNumber;
+  final String userCountry;
+  final String userPinCode;
+  final String userDateJoined;
+  final String recentOrderItem;
+  final String recentOrderDateTime;
+  final int recentOrderPrice;
+  final String recentOrderStatus;
+  final String userDeliveryAddressImp;
+  // final bool accountCreatedSuccessfully;
+  final bool lastOrderSuccessful;
+
+  User(
+      {required this.userDeliveryAddressImp,
+      required this.userCountry,
+      required this.userPinCode,
+      required this.recentOrderItem,
+      required this.recentOrderDateTime,
+      required this.recentOrderPrice,
+      // required this.accountCreatedSuccessfully,
+      required this.userDateJoined,
+      required this.recentOrderStatus,
+      required this.userPhoneNumber,
+      required this.lastOrderSuccessful,
+      this.id = '',
+      required this.userFullName});
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'full-name': userFullName,
+        'phone-number': userPhoneNumber,
+        'date-joined': userDateJoined,
+        // 'account-created-succesfully': accountCreatedSuccessfully,
+        'last-order-succeed': lastOrderSuccessful,
+        'pincode': userPinCode,
+        'recent-order-price': recentOrderPrice,
+        'country': userCountry,
+        'recent-order-item': recentOrderItem,
+        'recent-order-date': recentOrderDateTime,
+        'recent-order-status': recentOrderStatus,
+        'delivery-address': userDeliveryAddressImp
+      };
 }

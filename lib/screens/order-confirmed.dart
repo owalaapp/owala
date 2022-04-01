@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:owalaapp/constants/ouricons.dart';
 import 'package:owalaapp/constants/theimages.dart';
+import 'package:owalaapp/models/user.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:owalaapp/components/appbar.dart';
 import 'package:owalaapp/components/dividers.dart';
 import 'package:owalaapp/constants/constants.dart';
 import 'package:owalaapp/constants/products.dart';
-import 'package:owalaapp/constants/user.dart';
 
 import 'package:owalaapp/components/section-titles.dart';
 import 'package:owalaapp/screens/customer-support.dart';

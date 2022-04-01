@@ -6,7 +6,7 @@ double centreIllheight = 190.0;
 
 // GLOBAL
 String owalaPrimaryColoredFullLogo = 'images/owalaPrimaryFullLogo.svg';
-String productaCartCta = 'images/vegetable-cart.png';
+String productaCartCta = 'images/juice-cart.jpg';
 String productbCartCta = 'images/fruits-cart.png';
 String locationPermissionIll = 'images/locationPerm.svg';
 
