@@ -1,4 +1,4 @@
-package com.owalain
+package com.owalain.owala
 
 import io.flutter.embedding.android.FlutterActivity
 
