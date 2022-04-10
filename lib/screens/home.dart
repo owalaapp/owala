@@ -8,6 +8,7 @@ import 'package:owalaapp/constants/products.dart';
 import 'package:owalaapp/constants/theimages.dart';
 import 'package:owalaapp/components/section-titles.dart';
 import 'package:owalaapp/components/logoappbar.dart';
+import 'package:owalaapp/services/superbase-manager.dart';
 
 // SCREENS
 import 'package:owalaapp/screens/address.dart';
@@ -49,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
     // }
 
     if (gotUserLocation == ', , , ...') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LocartionPermSc()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => LocationPermissionScreen()));
     } else {
       gotUserLocation = true;
     }
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LocartionPermSc()));
+                            builder: (context) => LocationPermissionScreen()));
                   },
                   child: Row(
                     children: [
@@ -107,10 +108,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 GestureDetector(
                   child: ourPrimaryIcon(sideMenuIcon, defaultIconColor),
-                  onTap: () => {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SideMenu()))
+                  onTap: () async {
+                    // print("###############################GOT DATA: $response");
                   },
+                  // onTap: () => {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => SideMenu()))
+                  // },
                 )
               ]),
               SizedBox(

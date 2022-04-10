@@ -87,7 +87,8 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => LocartionPermSc()));
+                              builder: (context) =>
+                                  LocationPermissionScreen()));
                     },
                     child: Row(
                       children: [

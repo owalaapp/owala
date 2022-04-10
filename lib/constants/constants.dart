@@ -8,6 +8,7 @@ Color secondaryColor = Color(0xffC8E6C9);
 Color lightPrimaryColor = Color(0xffC8E6C9);
 Color dividerColor = Color(0xffBDBDBD);
 Color secondaryText = Color(0xff757575);
+final inputInsideColor = Colors.grey[100];
 const iconColorGrey = Colors.grey;
 
 // LAYOUT
@@ -33,10 +34,13 @@ double spacer1 = 10.0;
 double spacer2 = 20.0;
 double spacer3 = 40.0;
 
+// RADIUS
+
+
 // ABOUT US
 const ourContactNumber = '917042625705';
 const ourEmailId = 'support@owalain.com';
 const whatsappLink =
     'https://wa.me/$ourContactNumber?text=Hi,%20my%20name%20is%20(your%20name).%20I%20need%20help%20regarding...';
-String termsAndConditionsPage = "http://owala.online/terms-conditions";
-String privacyPolicyPage = "http://owala.online/privacy-policy";
+String termsAndConditionsPage = "http://owalain.com/terms-conditions";
+String privacyPolicyPage = "http://owalain.com/privacy-policy";

@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:owalaapp/constants/ourbuttonstyles.dart';
@@ -17,13 +17,14 @@ import 'package:owalaapp/constants/theimages.dart';
 // SCREENS
 import 'package:owalaapp/screens/location-permission.dart';
 
+// STATES
 enum MobileVerificationState { SHOW_MOBILE_FORM_STATE, SHOW_OTP_FORM_STATE }
 
-MobileVerificationState currentState =
-    MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+// MobileVerificationState currentState =
+//     MobileVerificationState.SHOW_MOBILE_FORM_STATE;
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  // const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -31,11 +32,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   GlobalKey<FormState> _form = GlobalKey<FormState>();
-  final _formKey = GlobalKey<FormState>();
+  final _loginFormKey = GlobalKey<FormState>();
   final _otpFormKey = GlobalKey<FormState>();
-
-  final phoneController = TextEditingController();
-  final otpController = TextEditingController();
 
   FirebaseAuth _auth = FirebaseAuth.instance;
   String verificationId = '';
@@ -56,8 +54,10 @@ class _LoginScreenState extends State<LoginScreen> {
       });
 
       if (authCredential?.user != null) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LocartionPermSc()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const LocationPermissionScreen()));
       }
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -66,6 +66,13 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  final currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+
+  // To get the values from the user.
+  final phoneController = TextEditingController();
+  final otpController = TextEditingController();
+
+//  TODO: CAN REMOVE SAFEAREA FROM HERE
   SafeArea getMobileFormWidget(context) {
     return SafeArea(
       child: Padding(
@@ -75,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SvgPicture.asset('images/owalaPrimaryFullLogo.svg'),
+            SvgPicture.asset(owalaPrimaryColoredFullLogo),
             SizedBox(
               height: spacer2,
             ),
@@ -86,7 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: ourConditonsText(
                         FontWeight.normal, FontStyle.italic, h5FontSize)),
                 TextSpan(
-                    text: ' Shop ',
+                    text: ' shop ',
                     style: ourConditonsText(
                         FontWeight.bold, FontStyle.italic, h5FontSize)),
                 TextSpan(
@@ -107,26 +114,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         FontWeight.bold, FontStyle.normal, h5FontSize))
               ]),
             ),
-            const SizedBox(
-              height: 100.0,
+            SizedBox(
+              height: spacer3 + spacer3,
             ),
             Center(
               child: Text(
-                "India's First\nMoving Shops",
+                "India's #1st\nMoving Shops",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     fontWeight: FontWeight.bold, fontSize: h5FontSize),
               ),
             ),
-            const SizedBox(
-              height: 20.0,
+            SizedBox(
+              height: spacer2,
             ),
             const Center(child: Text("Login or Sign up with")),
-            const SizedBox(
-              height: 20.0,
+            SizedBox(
+              height: spacer2,
             ),
             Form(
-                key: _formKey,
+                key: _loginFormKey,
                 child: Column(
                   children: [
                     TextFormField(
@@ -143,17 +150,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       decoration: InputDecoration(
                           prefixIcon: Image.asset(indianFlagIcon),
                           enabledBorder: const OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                             // borderSide: BorderSide(color: Colors.grey[200])
                           ),
                           focusedBorder: const OutlineInputBorder(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                            // borderSide: BorderSide(color: Colors.grey[300])
+                            borderRadius: BorderRadius.all(Radius.circular(8)),
                           ),
                           filled: true,
-                          fillColor: Colors.grey[100],
+                          fillColor: inputInsideColor,
                           hintText: "Mobile Number"),
                       // controller: _phoneController,
                     ),
@@ -169,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: ourPrimaryButtonStyle(),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
+                              if (_loginFormKey.currentState!.validate()) {
                                 setState(() {
                                   userPhoneNumber =
                                       int.parse(phoneController.text);
@@ -194,8 +198,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                       (verificationId, resendingToken) async {
                                     setState(() {
                                       showLoading = false;
-                                      currentState = MobileVerificationState
-                                          .SHOW_OTP_FORM_STATE;
+                                      // currentState = MobileVerificationState
+                                      //     .SHOW_OTP_FORM_STATE;
                                       this.verificationId = verificationId;
                                     });
                                   },
@@ -261,8 +265,8 @@ class _LoginScreenState extends State<LoginScreen> {
           GestureDetector(
             onTap: () {
               setState(() {
-                currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
-                MaterialPageRoute(builder: (context) => (const LoginScreen()));
+                // currentState = MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+                MaterialPageRoute(builder: (context) => (LoginScreen()));
               });
             },
             child: Container(
@@ -360,12 +364,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     : WillPopScope(
                         onWillPop: () async {
                           setState(() {
-                            currentState =
-                                MobileVerificationState.SHOW_MOBILE_FORM_STATE;
+                            // currentState =
+                            //     MobileVerificationState.SHOW_MOBILE_FORM_STATE;
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
+                                    builder: (context) => LoginScreen()));
                           });
                           return false;
                         },

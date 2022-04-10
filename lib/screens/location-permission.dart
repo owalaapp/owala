@@ -12,14 +12,14 @@ import 'package:owalaapp/models/user.dart';
 import 'package:owalaapp/screens/home.dart';
 import 'package:owalaapp/screens/nodeliverylocation.dart';
 
-class LocartionPermSc extends StatefulWidget {
-  const LocartionPermSc({Key? key}) : super(key: key);
+class LocationPermissionScreen extends StatefulWidget {
+  const LocationPermissionScreen({Key? key}) : super(key: key);
 
   @override
   _LocartionPermSc createState() => _LocartionPermSc();
 }
 
-class _LocartionPermSc extends State<LocartionPermSc> {
+class _LocartionPermSc extends State<LocationPermissionScreen> {
   @override
   void initState() {
     super.initState();

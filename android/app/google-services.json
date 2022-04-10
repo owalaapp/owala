@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "724263304244",
-    "project_id": "owala-8dc48",
-    "storage_bucket": "owala-8dc48.appspot.com"
+    "project_number": "533708818009",
+    "project_id": "owala-8d298",
+    "storage_bucket": "owala-8d298.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:724263304244:android:4562e4f48d4b65ea2fde61",
+        "mobilesdk_app_id": "1:533708818009:android:1393b6796b6de9862cd348",
         "android_client_info": {
           "package_name": "com.owalain.owala"
         }
       },
       "oauth_client": [
         {
-          "client_id": "724263304244-te4dm0b52t3jljqhacbmgtj7svt081cb.apps.googleusercontent.com",
+          "client_id": "533708818009-v6278v6qto9h7pifg9n54o6hdh0a2ggv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.owalain.owala",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "724263304244-fgf6d9ij14qbc3a6ok6d7rnvsr3cbc0n.apps.googleusercontent.com",
+          "client_id": "533708818009-na38c2fmlamnd3dck9ukv0375l7ol30i.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyD0aIKhOZmVjsmfgKdZZfyg3cEWNrBNMjc"
+          "current_key": "AIzaSyDMLQ9qVoHnsa42uaPJAudlUPFgcPJgrYA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "724263304244-fgf6d9ij14qbc3a6ok6d7rnvsr3cbc0n.apps.googleusercontent.com",
+              "client_id": "533708818009-na38c2fmlamnd3dck9ukv0375l7ol30i.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

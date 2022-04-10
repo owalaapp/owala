@@ -11,12 +11,20 @@ import 'constants/constants.dart';
 // SCREENS
 import 'package:owalaapp/screens/location-permission.dart';
 import 'package:owalaapp/screens/login.dart';
+import 'package:owalaapp/services/superbase-manager.dart';
 
 // programs starts from here
 void main() async {
   // used this as flutter needs to call native code before calling runApp
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  // final response = await client
+  //     .from('countries')
+  //     .select()
+  //     .order('name', ascending: true)
+  //     .execute();
+
   runApp(const MyApp());
 }
 
