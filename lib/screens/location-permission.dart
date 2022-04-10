@@ -138,7 +138,7 @@ class _LocartionPermSc extends State<LocationPermissionScreen> {
                   height: spacer3,
                 ),
                 Text(
-                  'We owala collects location data to enable live order tracking feature for you in future even when app is closed or not in use.',
+                  'We owalain collects location data to enable live order tracking feature for you in future even when app is closed or not in use.',
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(

@@ -51,7 +51,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.owalain.owala"
+        applicationId "com.owalain.owalain"
         minSdkVersion 20    // This over here
         // minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion

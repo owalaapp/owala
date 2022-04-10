@@ -91,7 +91,7 @@ class _OrderConfirmedScreenState extends State<OrderConfirmedScreen> {
               leading: Image.asset('images/$productChoosed-cart.png'),
               title: Text('$productChoosed Cart'.toUpperCase()),
               subtitle: Text(
-                  'Our owala captain wil contact you shortly via call or whatsapp.'),
+                  'Our owalain captain wil contact you shortly via call or whatsapp.'),
               trailing: Text(
                 'Rs.$productACartServiceCharge',
                 style: TextStyle(fontWeight: FontWeight.bold),
